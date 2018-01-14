@@ -1,0 +1,9 @@
+{
+  "name": "word-kanban",
+  "version": "1.0.0",
+  "description": "A Kanban-like word book",
+  "main": "index.js",
+  "repository": "https://github.com/crispgm/word-kanban.git",
+  "author": "David Zhang <crispgm@gmail.com>",
+  "license": "MIT"
+}
