@@ -1,0 +1,11 @@
+language: node_js
+node_js: "6.11.1"
+cache: yarn
+script: "yarn test"
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database word-kanban-test;' -U postgres
+notifications:
+  slack: navyblue-team:ioO5diAGc5WUQVDKc5BH1UbE
+  email: false

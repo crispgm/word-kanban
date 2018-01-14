@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('dripcoffee_rugbyboard_dev', 'dripcoffee', '', {
+const sequelize = new Sequelize('word-kanban-test', 'dripcoffee', '', {
   host: '127.0.0.1',
   dialect: 'postgres',
 
