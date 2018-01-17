@@ -11,6 +11,9 @@ export default class WordItem extends Component {
   }
 
   handleCheck(e) {
+    if (!this.state.checked) {
+      this.props.handleFunction(this.props.index);
+    }
     this.setState({
       checked: !this.state.checked,
     });
