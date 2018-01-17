@@ -14,16 +14,15 @@ export default class WordItem extends Component {
     if (!this.state.checked) {
       this.props.handleFunction(this.props.index);
     }
-    this.setState({
-      checked: !this.state.checked,
-    });
+    // Since it is destroyed, we actually do nothing after handleFunction.
+    // If we call `this.setState` here, the next element will inherit the checked box.
   }
 
   render() {
     return (
       <div>
         {this.props.showCheckBox &&
-          <input type="checkbox" onChange={this.handleCheck} />
+          <input type="checkbox" onChange={this.handleCheck} checked={this.state.checked} />
         }
         {this.props.word}
       </div>
