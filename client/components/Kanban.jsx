@@ -19,7 +19,7 @@ export default class Kanban extends Component {
     return (
       <div>
         <WordList handleUpdate={this.cookWord} title="Raw" words={this.state.rawWords} showInput showCheckBox />
-        <WordList handleUpdate={this.uncookWord} title="Cooked" words={this.state.cookedWords} draggable />
+        <WordList handleUpdate={this.uncookWord} title="Cooked" words={this.state.cookedWords} showCheckBox draggable />
       </div>
     )
   }
@@ -37,6 +37,7 @@ export default class Kanban extends Component {
   }
 
   uncookWord(index) {
+    const word = this.state.cookedWords[index];
     const cookedWords = this.state.cookedWords;
     const rawWords = this.state.rawWords;
     cookedWords.splice(index, 1);
