@@ -6,9 +6,9 @@ import { createHashHistory } from 'history';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import NotFound from './pages/NotFound';
-
-import Header from './components/Header';
-import Footer from './components/Footer';
+// layouts
+import Header from './layouts/Header';
+import Footer from './layouts/Footer';
 
 // handling changeRoute event
 const changeRoute = (e) => {
