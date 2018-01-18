@@ -8,6 +8,7 @@ import AboutPage from './pages/AboutPage';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 // handling changeRoute event
 const changeRoute = (e) => {
@@ -27,6 +28,7 @@ const App = () => (
   <div>
     <Header />
     <Main />
+    <Footer />
   </div>
 );
 
