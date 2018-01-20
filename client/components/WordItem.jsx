@@ -20,7 +20,7 @@ export default class WordItem extends Component {
 
   render() {
     return (
-      <div>
+      <div className="word-item">
         {this.props.showCheckBox &&
           <input type="checkbox" onChange={this.handleCheck} checked={this.state.checked} />
         }

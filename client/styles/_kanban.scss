@@ -1,0 +1,45 @@
+.kanban {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.word-list {
+  padding-right: .8rem;
+  width: 50%;
+
+  &:last-of-type {
+    padding: 0;
+  }
+}
+
+.word-item {
+  line-height: 1.2;
+  margin-top: .8rem;
+}
+
+.word-input {
+  text-align: left;
+}
+
+.word-input-box {
+  border: 0;
+  border-radius: 4px;
+  height: 1.6rem;
+  margin: 0 .4rem 0 0;
+  width: 100%;
+}
+
+@media (max-width: $breakpoint) {
+  .kanban {
+    display: block;
+  }
+
+  .word-list {
+    width: 100%;
+  }
+
+  .word-input {
+    width: 100%;
+  }
+}

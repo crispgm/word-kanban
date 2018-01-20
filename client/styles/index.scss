@@ -1,0 +1,68 @@
+// Word-kanban
+// Copyright (c) 2018 David Zhang
+// client/styles/index.scss
+// Entry for scss, and definitions
+// Colors powered by [Open Color](https://yeun.github.io/open-color/)
+
+$pink-0: #fff0f6;
+$pink-2: #fcc2d7;
+$grey-6: #868e96;
+$pink-6: #e64980;
+$grey-8: #343a40;
+
+$breakpoint: 45rem;
+
+@import 'header';
+@import 'footer';
+@import 'kanban';
+
+html {
+  font-size: 16px;
+}
+
+@media (max-width: $breakpoint) {
+  html {
+    font-size: 12px;
+  }
+}
+
+body {
+  background-color: $pink-0;
+  color: $pink-6;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Helvetica, Arial, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+a {
+  color: $grey-8;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.main {
+  margin: 0 auto;
+  text-align: left;
+  width: $breakpoint;
+}
+
+.container {
+}
+
+@media (max-width: $breakpoint) {
+  .main {
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+    padding: .4rem;
+  }
+}

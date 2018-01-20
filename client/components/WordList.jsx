@@ -1,6 +1,8 @@
 import { h, Component } from 'preact';
 
 import WordItem from './WordItem';
+import WordInput from './WordInput';
+import WordCollapse from './WordCollapse';
 
 export default class WordList extends Component {
   constructor(props) {
@@ -8,12 +10,21 @@ export default class WordList extends Component {
 
     this.setState({
       words: props.words,
+      collapsed: false,
     });
+
+    this.handleCollapse = this.handleCollapse.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       words: nextProps.words,
+    });
+  }
+
+  handleCollapse() {
+    this.setState({
+      collapsed: !this.state.collapsed,
     });
   }
 
@@ -28,16 +39,19 @@ export default class WordList extends Component {
     );
 
     return (
-      <div>
+      <div className="word-list">
         <h3>{this.props.title}</h3>
         {this.props.showInput &&
+          <WordInput placeholder=" ✒️ " />
+        }
+        {this.props.showCollapse &&
+          <WordCollapse text="Collapse..." handleCollapse={this.handleCollapse} />
+        }
+        {!this.state.collapsed &&
           <div>
-            <input name="word-input" type="text" />
+            {wordList}
           </div>
         }
-        <div>
-          {wordList}
-        </div>
       </div>
     );
   }

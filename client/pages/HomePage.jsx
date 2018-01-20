@@ -5,7 +5,7 @@ import Kanban from '../components/Kanban';
 export default class HomePage extends Component {
   render() {
     return (
-      <div>
+      <div class="container">
         <Kanban />
       </div>
     )

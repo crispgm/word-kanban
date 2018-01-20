@@ -4,10 +4,10 @@ import { Link } from 'preact-router/match';
 export default class Header extends Component {
   render() {
     return (
-      <div>
-        <Link href="/">Kanban</Link>
-        <Link href="/about">About</Link>
-      </div>
+      <header className="container">
+        <Link className="header-link" href="/">Kanban</Link>
+        <Link className="header-link" href="/about">About</Link>
+      </header>
     );
   }
 }
