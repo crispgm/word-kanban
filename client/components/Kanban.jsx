@@ -6,8 +6,8 @@ export default class Kanban extends Component {
   constructor(props) {
     super(props);
 
-    this.cookWord = this.cookWord.bind(this);
-    this.uncookWord = this.uncookWord.bind(this);
+    this.moveToDone = this.moveToDone.bind(this);
+    this.moveToInbox = this.moveToInbox.bind(this);
 
     this.setState({
       rawWords: ['hello', 'world'],
@@ -17,14 +17,14 @@ export default class Kanban extends Component {
 
   render() {
     return (
-      <div>
-        <WordList handleUpdate={this.cookWord} title="Raw" words={this.state.rawWords} showInput showCheckBox />
-        <WordList handleUpdate={this.uncookWord} title="Cooked" words={this.state.cookedWords} showCheckBox draggable />
+      <div className="kanban">
+        <WordList handleUpdate={this.moveToDone} title="📥 Inbox" words={this.state.rawWords} showInput showCheckBox />
+        <WordList handleUpdate={this.moveToInbox} title="📝 Done" words={this.state.cookedWords} showCollapse showCheckBox />
       </div>
     )
   }
 
-  cookWord(index) {
+  moveToDone(index) {
     const word = this.state.rawWords[index];
     const rawWords = this.state.rawWords;
     const cookedWords = this.state.cookedWords;
@@ -36,7 +36,7 @@ export default class Kanban extends Component {
     });
   }
 
-  uncookWord(index) {
+  moveToInbox(index) {
     const word = this.state.cookedWords[index];
     const cookedWords = this.state.cookedWords;
     const rawWords = this.state.rawWords;
