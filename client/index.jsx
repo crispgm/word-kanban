@@ -4,7 +4,7 @@ import { h, render } from 'preact';
 import { createHashHistory } from 'history';
 // pages
 import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
+import SettingPage from './pages/SettingPage';
 import NotFound from './pages/NotFound';
 // layouts
 import Header from './layouts/Header';
@@ -18,9 +18,9 @@ const changeRoute = (e) => {
 
 // main router
 const Main = () => (
-  <Router onChange={changeRoute}>
+  <Router history={createHashHistory()} onChange={changeRoute}>
     <HomePage path="/" />
-    <AboutPage path="/about" />
+    <SettingPage path="/setting" />
     <NotFound path="*" default />
   </Router>
 );
