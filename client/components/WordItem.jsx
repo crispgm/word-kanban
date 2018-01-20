@@ -44,10 +44,10 @@ export default class WordItem extends Component {
       const result = json.data.translations;
       if (result) {
         const translation = result[0].translatedText;
-        this.setState({
-          translation,
-          text: translation,
-        });
+        this.setState({ translation });
+        if (this.state.flipped) {
+          this.setState({ text: translation });
+        }
       }
     });
   }
