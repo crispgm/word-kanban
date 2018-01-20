@@ -9,6 +9,8 @@ import NotFound from './pages/NotFound';
 // layouts
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
+// styles
+import './styles/index.scss';
 
 // handling changeRoute event
 const changeRoute = (e) => {
@@ -16,7 +18,7 @@ const changeRoute = (e) => {
 
 // main router
 const Main = () => (
-  <Router history={createHashHistory()} onChange={changeRoute}>
+  <Router onChange={changeRoute}>
     <HomePage path="/" />
     <AboutPage path="/about" />
     <NotFound path="*" default />
@@ -25,7 +27,7 @@ const Main = () => (
 
 // main app
 const App = () => (
-  <div>
+  <div className="main">
     <Header />
     <Main />
     <Footer />
