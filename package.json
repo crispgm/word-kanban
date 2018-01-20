@@ -56,6 +56,6 @@
     "dev-build": "webpack -p --config ./config/webpack.dev.config.js --progress",
     "build": "webpack -p --config ./config/webpack.prod.config.js --progress",
     "lint": "eslint server && scss-lint client/styles",
-    "test": "mocha test"
+    "test": "mocha test --exit"
   }
 }
