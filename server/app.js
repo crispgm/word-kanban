@@ -45,15 +45,36 @@ app.use('/public', express.static(path.resolve(__dirname, '.', 'public')));
 // Parse body
 const jsonParser = bodyParser.json();
 
-// Handle 404
-app.use((req, res, next) => {
-  res.redirect(404, '/#/404');
-  next();
+const GOOGLE_TRANSLATE_API_KEY = process.env.GOOGLE_TRANSLATE_API_KEY;
+const CSRF_TOKEN = process.env.CSRF_TOKEN || 'default-token';
+
+app.get('/translate', (req, res) => {
+  const word = req.query.word;
+  const token = req.query.token;
+
+  const input = {
+    q: word,
+    source: 'en',
+    target: 'zh',
+    format: 'text'
+  }
+  const url = `https://translation.googleapis.com/language/translate/v2?key=${GOOGLE_TRANSLATE_API_KEY}`;
+  fetch(url, { method: 'POST', body: JSON.stringify(input) }).then((response) => {
+    return response.json();
+  }).then((json) => {
+    res.send(json);
+  });
 });
 
 // Always return the main index.html
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+});
+
+// Handle 404
+app.use((req, res, next) => {
+  res.redirect(404, '/#/404');
+  next();
 });
 
 module.exports = app;
