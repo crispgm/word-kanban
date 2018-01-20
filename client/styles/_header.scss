@@ -1,19 +1,22 @@
 header {
-  font-size: 2.4rem;
-  margin: 2.4rem 0 0;
+  color: $grey-8;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin: 1.2rem 0 0;
+}
+
+.header-more {
+  float: right;
 }
 
 .header-link {
-  margin-right: 1.2rem;
-
-  &:last-of-type {
-    margin: 0;
+  &:hover {
+    text-decoration: none;
   }
 }
 
 @media (max-width: $breakpoint) {
   header {
-    font-size: 1.2rem;
-    margin: 1.2rem 0 0;
+    margin: .8rem 0 0;
   }
 }
