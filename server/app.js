@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 const FormData = require('form-data');
 
 const app = express();
+const Word = require('./actions/word');
+const { translate } = require('./actions/translate');
 
 // webpack-dev-middleware
 if (process.env.NODE_ENV !== 'production') {
@@ -45,23 +47,16 @@ app.use('/public', express.static(path.resolve(__dirname, '.', 'public')));
 // Parse body
 const jsonParser = bodyParser.json();
 
-const GOOGLE_TRANSLATE_API_KEY = process.env.GOOGLE_TRANSLATE_API_KEY;
-const CSRF_TOKEN = process.env.CSRF_TOKEN || 'default-token';
-
 app.get('/translate', (req, res) => {
-  const word = req.query.word;
-  const token = req.query.token;
+  translate(req, res);
+});
 
-  const input = {
-    q: word,
-    source: 'en',
-    target: 'zh',
-    format: 'text',
-  };
-  const url = `https://translation.googleapis.com/language/translate/v2?key=${GOOGLE_TRANSLATE_API_KEY}`;
-  fetch(url, { method: 'POST', body: JSON.stringify(input) }).then(response => response.json()).then((json) => {
-    res.send(json);
-  });
+app.get('/word/create', (req, res) => {
+  return Word.create(req, res);
+});
+
+app.get('/word/get', (req, res) => {
+  return Word.get(req, res);
 });
 
 // Always return the main index.html
