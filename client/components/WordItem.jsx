@@ -9,12 +9,24 @@ export default class WordItem extends Component {
     this.mouseOut = this.mouseOut.bind(this);
 
     this.setState({
-      text: props.word,
       word: props.word,
+      text: props.word.text,
       translation: null,
       checked: false,
       flipped: false,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.word != this.state.word) {
+      this.setState({
+        word: nextProps.word,
+        text: nextProps.word.text,
+        translation: null,
+        checked: false,
+        flipped: false,
+      });
+    }
   }
 
   handleCheck(e) {
@@ -35,9 +47,9 @@ export default class WordItem extends Component {
       return;
     }
 
-    const word = this.props.word;
+    const text = this.state.word.text;
     const token = ''
-    const url = `/translate?word=${word}&token=${token}`;
+    const url = `/translate?word=${text}&token=${token}`;
     fetch(url).then((response) => {
       return response.json();
     }).then((json) => {
@@ -55,7 +67,7 @@ export default class WordItem extends Component {
   mouseOut() {
     if (this.state.flipped) {
       // disable
-      this.setState({ text: this.state.word });
+      this.setState({ text: this.state.word.text });
     }
     this.setState({ flipped: false });
   }

@@ -11,8 +11,15 @@ export default class Kanban extends Component {
     this.newEntry = this.newEntry.bind(this);
 
     this.setState({
-      inbox: ['hello', 'world'],
-      history: ['good', 'morning'],
+      inbox: props.inbox,
+      history: props.history,
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      inbox: nextProps.inbox,
+      history: nextProps.history,
     });
   }
 
@@ -56,7 +63,8 @@ export default class Kanban extends Component {
     const inbox = this.state.inbox;
     const history = this.state.history;
     inbox.splice(index, 1);
-    history.splice(this.state.history.length, 0, word);
+    history.splice(0, 0, word);
+
     this.setState({
       inbox,
       history,
@@ -68,7 +76,8 @@ export default class Kanban extends Component {
     const history = this.state.history;
     const inbox = this.state.inbox;
     history.splice(index, 1);
-    inbox.splice(this.state.inbox.length, 0, word);
+    inbox.splice(0, 0, word);
+
     this.setState({
       inbox,
       history,

@@ -17,9 +17,11 @@ export default class WordList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      words: nextProps.words,
-    });
+    if (nextProps.words != this.state.words) {
+      this.setState({
+        words: nextProps.words,
+      });
+    }
   }
 
   handleCollapse() {
@@ -29,15 +31,6 @@ export default class WordList extends Component {
   }
 
   render() {
-    const wordList = this.state.words.map((word, index) =>
-      <WordItem
-        word={word}
-        index={index}
-        showCheckBox={this.props.showCheckBox}
-        handleCheck={this.props.handleCheck}
-      />
-    );
-
     return (
       <div className="word-list">
         <h3>{this.props.title}</h3>
@@ -49,7 +42,14 @@ export default class WordList extends Component {
         }
         {!this.state.collapsed &&
           <div>
-            {wordList}
+            {this.state.words.map((word, index) =>
+              <WordItem
+                word={word}
+                index={index}
+                showCheckBox={this.props.showCheckBox}
+                handleCheck={this.props.handleCheck}
+              />
+            )}
           </div>
         }
       </div>
