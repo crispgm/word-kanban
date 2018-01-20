@@ -28,10 +28,13 @@
 }
 
 .word-input-box {
+  color: $pink-2;
+  background-color: $white;
   border: 0;
   border-radius: 4px;
   height: 1.6rem;
   margin: 0 .4rem 0 0;
+  text-align: left;
   width: 100%;
 }
 

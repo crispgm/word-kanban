@@ -4,6 +4,7 @@
 // Entry for scss, and definitions
 // Colors powered by [Open Color](https://yeun.github.io/open-color/)
 
+$white: #fff;
 $pink-0: #fff0f6;
 $pink-2: #fcc2d7;
 $grey-6: #868e96;
@@ -67,7 +68,7 @@ img {
   }
 
   .container {
-    width: 100%;
     padding: .4rem;
+    width: 100%;
   }
 }
