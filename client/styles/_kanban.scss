@@ -14,8 +14,13 @@
 }
 
 .word-item {
+  display: flex;
   line-height: 1.2;
   margin-top: .8rem;
+}
+
+.word-text {
+  width: 100%;
 }
 
 .word-input {
@@ -36,6 +41,10 @@
   }
 
   .word-list {
+    width: 100%;
+  }
+
+  .word-item {
     width: 100%;
   }
 
