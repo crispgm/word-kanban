@@ -34,7 +34,7 @@ export default class WordList extends Component {
         word={word}
         index={index}
         showCheckBox={this.props.showCheckBox}
-        handleFunction={this.props.handleUpdate}
+        handleCheck={this.props.handleCheck}
       />
     );
 
@@ -42,7 +42,7 @@ export default class WordList extends Component {
       <div className="word-list">
         <h3>{this.props.title}</h3>
         {this.props.showInput &&
-          <WordInput placeholder=" ✒️ " />
+          <WordInput placeholder=" ✒️ " handleChange={this.props.handleInput} />
         }
         {this.props.showCollapse &&
           <WordCollapse text="Collapse..." handleCollapse={this.handleCollapse} />

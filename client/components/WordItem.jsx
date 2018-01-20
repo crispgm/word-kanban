@@ -12,9 +12,9 @@ export default class WordItem extends Component {
 
   handleCheck(e) {
     if (!this.state.checked) {
-      this.props.handleFunction(this.props.index);
+      this.props.handleCheck(this.props.index);
     }
-    // Since it is destroyed, we actually do nothing after handleFunction.
+    // Since it is destroyed, we actually do nothing after handleCheck.
     // If we call `this.setState` here, the next element will inherit the checked box.
   }
 
