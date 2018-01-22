@@ -2,7 +2,7 @@
   "name": "word-kanban",
   "version": "1.0.0",
   "description": "A Kanban-like word book",
-  "main": "index.js",
+  "main": "server/index.js",
   "repository": "https://github.com/crispgm/word-kanban.git",
   "author": "David Zhang <crispgm@gmail.com>",
   "license": "MIT",
@@ -56,6 +56,10 @@
     "dev-build": "webpack -p --config ./config/webpack.dev.config.js --progress",
     "build": "webpack -p --config ./config/webpack.prod.config.js --progress",
     "lint": "eslint server && scss-lint client/styles",
-    "test": "mocha test --exit"
+    "test": "mocha test --exit",
+    "heroku-postbuild": "webpack -p --config ./config/webpack.prod.config.js"
+  },
+  "engines": {
+    "node": "6.11.1"
   }
 }
