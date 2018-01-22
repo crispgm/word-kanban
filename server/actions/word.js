@@ -3,6 +3,7 @@ const models = require('../models');
 function get(req, res) {
   const page = req.query.page || 1;
   const listId = req.query.listId || 1;
+  const userId = 1;
 
   models.Words.findAll({
     where: {
