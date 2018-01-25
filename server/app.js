@@ -68,11 +68,11 @@ const checkJwt = jwt({
   algorithms: [ 'RS256' ]
 });
 
-app.get('/translate', (req, res) => {
+app.get('/translate', checkJwt, (req, res) => {
   translate(req, res);
 });
 
-app.get('/word/create', checkJwt, (req, res) => {
+app.post('/word/create', checkJwt, bodyParser, (req, res) => {
   return Word.create(req, res);
 });
 

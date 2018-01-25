@@ -48,9 +48,10 @@ export default class WordItem extends Component {
     }
 
     const text = this.state.word.text;
-    const token = ''
-    const url = `/translate?word=${text}&token=${token}`;
-    fetch(url).then((response) => {
+    const url = `/translate?word=${text}`;
+    fetch(url, {
+      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('access_token') }
+    }).then((response) => {
       return response.json();
     }).then((json) => {
       const result = json.data.translations;
