@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 import Kanban from '../components/Kanban';
-import { getWordList } from '../data';
+import { getWords } from '../data';
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -11,6 +11,8 @@ export default class HomePage extends Component {
       inbox: [],
       history: [],
     });
+
+    this.login.bind(this);
   }
 
   componentWillMount() {
@@ -20,7 +22,7 @@ export default class HomePage extends Component {
   fetchData() {
     const self = this;
 
-    getWordList(
+    getWords(
       1,
       (json) => {
         self.setState({
@@ -38,7 +40,16 @@ export default class HomePage extends Component {
     );
   }
 
+  login() {
+    this.props.auth.login();
+  }
+
   render() {
+    const { isAuthenticated } = this.props.auth;
+    if (!isAuthenticated()) {
+      this.login();
+    }
+
     return (
       <div class="container">
         <Kanban inbox={this.state.inbox} history={this.state.history} />

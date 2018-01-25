@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 
 import WordList from '../components/WordList';
+import { createWord } from '../data';
 
 export default class Kanban extends Component {
   constructor(props) {
@@ -47,15 +48,28 @@ export default class Kanban extends Component {
 
   newEntry(evt) {
     const word = evt.target.value;
+    const self = this;
     if (word && word.length > 0) {
-      const inbox = this.state.inbox;
-      inbox.splice(this.state.inbox.length, 0, word);
-      this.setState({
-        inbox,
-      });
-      return true;
+      createWord(
+        word,
+        1,
+        (json) => {
+          const inbox = self.state.inbox;
+          inbox.splice(0, 0, json);
+          self.setState({
+            inbox,
+          });
+          return true;
+        },
+        () => {
+          self.setState({
+            error: {
+              message: 'Loading failed.',
+            },
+          });
+        },
+      );
     }
-    return false;
   }
 
   moveToHistory(index) {

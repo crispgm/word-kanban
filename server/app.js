@@ -9,7 +9,9 @@ const morgan = require('morgan');
 const path = require('path');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
-const FormData = require('form-data');
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
+const cors = require('cors');
 
 const app = express();
 const Word = require('./actions/word');
@@ -44,23 +46,42 @@ app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 // Serve static assets
 app.use('/public', express.static(path.resolve(__dirname, '.', 'public')));
 
-// Parse body
-const jsonParser = bodyParser.json();
+// Enable CORS
+app.use(cors());
 
-app.get('/translate', (req, res) => {
+// Enable the use of request body parsing middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+// Create middleware for checking the JWT
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://crispgm.au.auth0.com/.well-known/jwks.json`
+  }),
+  audience: 'api.word-kanban.words',
+  issuer: 'https://crispgm.au.auth0.com/',
+  algorithms: [ 'RS256' ]
+});
+
+app.get('/translate', checkJwt, (req, res) => {
   translate(req, res);
 });
 
-app.get('/word/create', (req, res) => {
+app.post('/word/create', checkJwt, (req, res) => {
   return Word.create(req, res);
 });
 
-app.get('/word/get', (req, res) => {
+app.get('/word/get', checkJwt, (req, res) => {
   return Word.get(req, res);
 });
 
 // Always return the main index.html
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 

@@ -3,7 +3,7 @@ const models = require('../models');
 function get(req, res) {
   const page = req.query.page || 1;
   const listId = req.query.listId || 1;
-  const userId = 1;
+  const userId = req.user.sub;
 
   models.Words.findAll({
     where: {
@@ -24,8 +24,18 @@ function get(req, res) {
 }
 
 function create(req, res) {
-  const newWord = req.query.word;
+  const newWord = req.body.word;
   const listId = req.query.listId || 1;
+  const userId = req.user.sub;
+  
+  if (!newWord) {
+    const message = 'Invalid word entry';
+    console.warn(message);
+    res.send({
+      status: -1,
+      message: message,
+    });
+  }
 
   models.Words.create({
       text: newWord,

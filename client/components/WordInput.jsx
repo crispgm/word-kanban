@@ -5,11 +5,12 @@ export default class WordInput extends Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.setState({ text: '' });
   }
 
   handleChange(evt) {
     if (this.props.handleChange(evt)) {
-      evt.target.value = ""
+      this.setState({ text: '' });
     }
   }
 
@@ -22,6 +23,7 @@ export default class WordInput extends Component {
           type="text"
           placeholder={this.props.placeholder}
           onChange={this.handleChange}
+          value={this.state.text}
         />
       </div>
     );
