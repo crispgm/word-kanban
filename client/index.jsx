@@ -5,22 +5,25 @@ import { createHashHistory } from 'history';
 // pages
 import HomePage from './pages/HomePage';
 import SettingPage from './pages/SettingPage';
+import Callback from './pages/Callback';
 import NotFound from './pages/NotFound';
 // layouts
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
+// auth
+import Auth from './auth';
 // styles
 import './styles/index.scss';
 
-// handling changeRoute event
-const changeRoute = (e) => {
-};
+// init auth0 client
+const auth = new Auth();
 
 // main router
 const Main = () => (
-  <Router history={createHashHistory()} onChange={changeRoute}>
-    <HomePage path="/" />
-    <SettingPage path="/setting" />
+  <Router>
+    <HomePage path="/" auth={auth} />
+    <SettingPage path="/setting" auth={auth} />
+    <Callback path="/callback" auth={auth} />
     <NotFound path="*" default />
   </Router>
 );

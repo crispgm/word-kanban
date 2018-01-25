@@ -11,6 +11,8 @@ export default class HomePage extends Component {
       inbox: [],
       history: [],
     });
+
+    this.login.bind(this);
   }
 
   componentWillMount() {
@@ -38,7 +40,16 @@ export default class HomePage extends Component {
     );
   }
 
+  login() {
+    this.props.auth.login();
+  }
+
   render() {
+    const { isAuthenticated } = this.props.auth;
+    if (!isAuthenticated()) {
+      this.login();
+    }
+
     return (
       <div class="container">
         <Kanban inbox={this.state.inbox} history={this.state.history} />
