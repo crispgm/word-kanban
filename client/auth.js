@@ -7,7 +7,7 @@ export default class Auth {
   constructor() {
     let redirectUri = 'http://localhost:9000/callback';
     if (process.env.NODE_ENV === 'production') {
-      redirectUri = 'https://word-kanban.herokuapp.com/';
+      redirectUri = 'https://word-kanban.herokuapp.com/callback';
     }
     this.auth0 = new auth0.WebAuth({
       domain: 'crispgm.au.auth0.com',
