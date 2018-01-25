@@ -13,9 +13,9 @@ export default class Auth {
       domain: 'crispgm.au.auth0.com',
       clientID: '6PLoLj3tLQjtaCbwN14i1K7Z1p9VXNHY',
       redirectUri: redirectUri,
-      audience: 'https://crispgm.au.auth0.com/userinfo',
+      audience: 'api.word-kanban.words',
       responseType: 'token id_token',
-      scope: 'openid'
+      scope: 'openid profile'
     });
 
     this.login = this.login.bind(this);

@@ -13,7 +13,11 @@ function endProgress() {
 
 function getData(url, callback, timeout) {
   startProgress();
-  timeoutify(fetch(url), 3000)
+  timeoutify(fetch(url, {
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+    },
+  }), 3000)
     .then((response) => {
       endProgress();
       return response.json();
@@ -30,7 +34,10 @@ function postData(url, form, callback) {
   fetch(url, {
     method: 'POST',
     body: JSON.stringify(form),
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+    },
   })
     .then((response) => {
       endProgress();
