@@ -24,8 +24,7 @@ function get(req, res) {
 }
 
 function create(req, res) {
-  console.log(req.body);
-  const newWord = req.query.word;
+  const newWord = req.body.word;
   const listId = req.query.listId || 1;
   const userId = req.user.sub;
   

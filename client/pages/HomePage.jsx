@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 import Kanban from '../components/Kanban';
-import { getWordList } from '../data';
+import { getWords } from '../data';
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class HomePage extends Component {
   fetchData() {
     const self = this;
 
-    getWordList(
+    getWords(
       1,
       (json) => {
         self.setState({

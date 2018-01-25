@@ -72,7 +72,7 @@ app.get('/translate', checkJwt, (req, res) => {
   translate(req, res);
 });
 
-app.post('/word/create', checkJwt, bodyParser, (req, res) => {
+app.post('/word/create', checkJwt, (req, res) => {
   return Word.create(req, res);
 });
 

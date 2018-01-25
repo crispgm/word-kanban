@@ -29,7 +29,7 @@ function getData(url, callback, timeout) {
     });
 }
 
-function postData(url, form, callback) {
+function postData(url, form, callback, timeout) {
   startProgress();
   fetch(url, {
     method: 'POST',
@@ -43,9 +43,21 @@ function postData(url, form, callback) {
       endProgress();
       return response.json();
     })
-    .then((json) => { callback(json); });
+    .then((json) => { callback(json); })
+    .catch(() => {
+      endProgress();
+      timeout();
+    });
 }
 
-export function getWordList(listId, callback, timeout) {
+export function getWords(listId, callback, timeout) {
   getData('/word/get', callback, timeout);
 }
+
+export function createWord(word, listId, callback, timeout) {
+  postData('/word/create', {
+    word: word,
+    listId: listId,
+  }, callback, timeout);
+}
+
