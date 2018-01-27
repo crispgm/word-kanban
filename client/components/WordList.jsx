@@ -10,7 +10,8 @@ export default class WordList extends Component {
 
     this.setState({
       words: props.words,
-      collapsed: false,
+      collapsed: true,
+      collapseText: 'Show...',
     });
 
     this.handleCollapse = this.handleCollapse.bind(this);
@@ -25,8 +26,10 @@ export default class WordList extends Component {
   }
 
   handleCollapse() {
+    const collapseText = this.state.collapsed ? 'Collapse...' : 'Show...';
     this.setState({
       collapsed: !this.state.collapsed,
+      collapseText,
     });
   }
 
@@ -38,9 +41,9 @@ export default class WordList extends Component {
           <WordInput placeholder=" ✒️ " handleChange={this.props.handleInput} />
         }
         {this.props.showCollapse &&
-          <WordCollapse text="Collapse..." handleCollapse={this.handleCollapse} />
+          <WordCollapse text={this.state.collapseText} handleCollapse={this.handleCollapse} />
         }
-        {!this.state.collapsed &&
+        {(!this.props.showCollapse || !this.state.collapsed) &&
           <div>
             {this.state.words.map((word, index) =>
               <WordItem
