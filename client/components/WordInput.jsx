@@ -4,14 +4,26 @@ export default class WordInput extends Component {
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
     this.setState({ text: '' });
   }
 
-  handleChange(evt) {
-    if (this.props.handleChange(evt)) {
-      this.setState({ text: '' });
+  handleEnter(evt) {
+    if (evt.key === 'Enter') {
+      if (this.props.handleChange(evt)) {
+        this.setState({ text: '' });
+      }
     }
+  }
+
+  handleFocus(evt) {
+    evt.target.placeholder = '';
+  }
+
+  handleBlur(evt) {
+    evt.target.placeholder = this.props.placeholder;
   }
 
   render() {
@@ -22,7 +34,9 @@ export default class WordInput extends Component {
           name="word-input"
           type="text"
           placeholder={this.props.placeholder}
-          onChange={this.handleChange}
+          onKeyPress={this.handleEnter}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
           value={this.state.text}
         />
       </div>

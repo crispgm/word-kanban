@@ -5,7 +5,7 @@ export default class WordCollapse extends Component {
     return (
       <div className="word-input">
         <input
-          className="word-input-box"
+          className="word-input-btn"
           name="word-collapse"
           type="button"
           value={this.props.text}
