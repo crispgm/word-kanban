@@ -43,6 +43,7 @@ export default class WordItem extends Component {
   }
 
   handleInput(e) {
+    e.preventDefault();
     if (e.target.innerText !== this.state.text) {
       this.setState({
         text: e.target.innerText,
@@ -128,8 +129,8 @@ export default class WordItem extends Component {
             <input type="checkbox" onChange={this.handleCheck} checked={this.state.checked} />
           </div>
         }
-        <div className="word-text" onMouseOut={this.mouseOut}>
-          <div className="word-text-icon" onMouseOver={this.mouseOver}>➡️</div>
+        <div className="word-text">
+          <div className="word-text-icon" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>➡️</div>
           <div className="word-text-main"
             contenteditable="true"
             onInput={this.handleInput}
