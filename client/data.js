@@ -15,7 +15,7 @@ function getData(url, callback, timeout) {
   startProgress();
   timeoutify(fetch(url, {
     headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+      Authorization: 'Bearer ' + localStorage.getItem('access_token'),
     },
   }), 3000)
     .then((response) => {
@@ -36,7 +36,7 @@ function postData(url, form, callback, timeout) {
     body: JSON.stringify(form),
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+      Authorization: 'Bearer ' + localStorage.getItem('access_token'),
     },
   })
     .then((response) => {

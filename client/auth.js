@@ -2,7 +2,7 @@
 
 import auth0 from 'auth0-js';
 import { route } from 'preact-router';
-
+/* eslint-disable class-methods-use-this */
 export default class Auth {
   constructor() {
     let redirectUri = 'http://localhost:9000/callback';
@@ -12,10 +12,10 @@ export default class Auth {
     this.auth0 = new auth0.WebAuth({
       domain: 'crispgm.au.auth0.com',
       clientID: '6PLoLj3tLQjtaCbwN14i1K7Z1p9VXNHY',
-      redirectUri: redirectUri,
+      redirectUri,
       audience: 'api.word-kanban.words',
       responseType: 'token id_token',
-      scope: 'openid profile'
+      scope: 'openid profile',
     });
 
     this.login = this.login.bind(this);
@@ -36,14 +36,13 @@ export default class Auth {
       } else if (err) {
         route('/');
         console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
 
   setSession(authResult) {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -61,9 +60,9 @@ export default class Auth {
   }
 
   isAuthenticated() {
-    // Check whether the current time is past the 
+    // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
 }
