@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 import WordList from '../components/WordList';
-import { createWord } from '../data';
+import { createWord, moveWord } from '../data';
 
 export default class Kanban extends Component {
   constructor(props) {
@@ -64,9 +64,10 @@ export default class Kanban extends Component {
         () => {
           self.setState({
             error: {
-              message: 'Loading failed.',
+              message: 'Create failed.',
             },
           });
+          return false;
         },
       );
     }
@@ -79,10 +80,25 @@ export default class Kanban extends Component {
     inbox.splice(index, 1);
     history.splice(0, 0, word);
 
-    this.setState({
-      inbox,
-      history,
-    });
+    moveWord(
+      word.id,
+      2,
+      (json) => {
+        this.setState({
+          inbox,
+          history,
+        });
+        return true;
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Move failed.',
+          },
+        });
+        return false;
+      },
+    );
   }
 
   moveToInbox(index) {

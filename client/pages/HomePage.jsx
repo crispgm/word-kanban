@@ -27,7 +27,22 @@ export default class HomePage extends Component {
       (json) => {
         self.setState({
           inbox: json.words,
-          history: [],
+        });
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Loading failed.',
+          },
+        });
+      },
+    );
+
+    getWords(
+      2,
+      (json) => {
+        self.setState({
+          history: json.words,
         });
       },
       () => {

@@ -51,7 +51,7 @@ function postData(url, form, callback, timeout) {
 }
 
 export function getWords(listId, callback, timeout) {
-  getData('/word/get', callback, timeout);
+  getData(`/word/get?listId=${listId}`, callback, timeout);
 }
 
 export function createWord(word, listId, callback, timeout) {
@@ -61,3 +61,9 @@ export function createWord(word, listId, callback, timeout) {
   }, callback, timeout);
 }
 
+export function moveWord(wordId, listId, callback, timeout) {
+  postData('/word/move', {
+    wordId: wordId,
+    listId: listId,
+  }, callback, timeout);
+}

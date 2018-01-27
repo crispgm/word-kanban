@@ -72,12 +72,16 @@ app.get('/translate', checkJwt, (req, res) => {
   translate(req, res);
 });
 
+app.get('/word/get', checkJwt, (req, res) => {
+  return Word.get(req, res);
+});
+
 app.post('/word/create', checkJwt, (req, res) => {
   return Word.create(req, res);
 });
 
-app.get('/word/get', checkJwt, (req, res) => {
-  return Word.get(req, res);
+app.post('/word/move', checkJwt, (req, res) => {
+  return Word.move(req, res);
 });
 
 // Always return the main index.html
