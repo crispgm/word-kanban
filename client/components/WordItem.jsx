@@ -81,8 +81,9 @@ export default class WordItem extends Component {
             <input type="checkbox" onChange={this.handleCheck} checked={this.state.checked} />
           </div>
         }
-        <div className="word-text" onMouseOut={this.mouseOut} onMouseOver={this.mouseOver}>
-          {this.state.text}
+        <div className="word-text" onMouseOut={this.mouseOut}>
+          <div className="word-text-icon" onMouseOver={this.mouseOver}>➡️</div>
+          <div className="word-text-main">{this.state.text}</div>
         </div>
       </div>
     );

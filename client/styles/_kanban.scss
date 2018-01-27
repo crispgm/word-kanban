@@ -21,6 +21,19 @@
 
 .word-text {
   width: 100%;
+
+  .word-text-icon {
+    display: none;
+    float: right;
+    font-size: .8rem;
+    padding-right: .4rem;
+  }
+
+  &:hover {
+    .word-text-icon {
+      display: block;
+    }
+  }
 }
 
 .word-input {
