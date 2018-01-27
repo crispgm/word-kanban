@@ -1,12 +1,12 @@
-# Word Kanban
+# [Word Kanban](https://word-kanban.herokuapp.com/)
 
 [![](https://api.travis-ci.org/crispgm/word-kanban.svg?branch=master)](https://travis-ci.org/crispgm/word-kanban)
 
-(WIP) A simple Kanban-like word book.
+A simple Kanban-like word book, which is entirely written with Node. The user system is powered by Auth0. All the icons are actually emojis.
 
-## Installation
+And we use Preact stacks for client side.
 
-TODO
+For demo use, please visit here <https://word-kanban.herokuapp.com/>.
 
 ## Development
 
@@ -29,6 +29,12 @@ TODO
 	$ GOOGLE_TRANSLATE_API_KEY=your-api-key yarn start
 	```
 
+## Deploy with Heroku
+
+Coming soon.
+
 ## License
 
-MIT License. Copyright (c) 2018 David Zhang.
+MIT License.
+
+Copyright (c) 2018 David Zhang.
