@@ -3,7 +3,6 @@ const { GOOGLE_TRANSLATE_API_KEY } = require('../token');
 
 function translate(req, res) {
   const word = req.query.word;
-  const token = req.query.token;
 
   const input = {
     q: word,
@@ -18,5 +17,5 @@ function translate(req, res) {
 }
 
 module.exports = {
-  translate
+  translate,
 };

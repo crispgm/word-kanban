@@ -36,6 +36,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
+  width: 100%;
   word-wrap: break-word;
 }
 
@@ -59,16 +60,11 @@ img {
 }
 
 .container {
-  width: 100%;
+  margin: .8rem;
 }
 
 @media (max-width: $breakpoint) {
   .main {
-    width: 100%;
-  }
-
-  .container {
-    padding: .4rem;
     width: 100%;
   }
 }

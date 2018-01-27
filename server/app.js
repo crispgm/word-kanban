@@ -7,7 +7,6 @@ const express = require('express');
 const compression = require('compression');
 const morgan = require('morgan');
 const path = require('path');
-const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
@@ -52,7 +51,7 @@ app.use(cors());
 // Enable the use of request body parsing middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 
 // Create middleware for checking the JWT
@@ -61,11 +60,11 @@ const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://crispgm.au.auth0.com/.well-known/jwks.json`
+    jwksUri: 'https://crispgm.au.auth0.com/.well-known/jwks.json',
   }),
   audience: 'api.word-kanban.words',
   issuer: 'https://crispgm.au.auth0.com/',
-  algorithms: [ 'RS256' ]
+  algorithms: ['RS256'],
 });
 
 app.get('/translate', checkJwt, (req, res) => {
