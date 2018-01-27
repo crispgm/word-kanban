@@ -1,0 +1,6 @@
+{
+  "name": "Word Kanban",
+  "description": "A simple Kanban-like word book",
+  "repository": "https://github.com/crispgm/word-kanban",
+  "keywords": ["wordbook", "kanban"]
+}

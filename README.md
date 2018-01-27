@@ -31,6 +31,8 @@ For demo use, please visit here <https://word-kanban.herokuapp.com/>.
 
 ## Deploy with Heroku
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/crispgm/word-kanban)
+
 Create app
 
 ```
