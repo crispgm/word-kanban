@@ -31,7 +31,34 @@ For demo use, please visit here <https://word-kanban.herokuapp.com/>.
 
 ## Deploy with Heroku
 
-Coming soon.
+Create app
+
+```
+$ heroku create your-app-name
+$ heroku git:remote -a your-app-name
+```
+
+Set config vars
+
+```
+$ heroku config:set NPM_CONFIG_PRODUCTION=false
+$ heroku config:set GOOGLE_TRANSLATE_API_KEY=your-api-key
+```
+
+Create DB
+
+```
+$ heroku addons:add heroku-postgresql:dev
+$ heroku config:set DATABASE_URL=your-database-url
+```
+
+Migrate
+
+```
+$ heroku run bash
+$ cd server
+$ sequelize db:migrate
+```
 
 ## License
 
