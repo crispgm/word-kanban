@@ -24,6 +24,7 @@ const Main = () => (
     <HomePage path="/" auth={auth} />
     <SettingPage path="/setting" auth={auth} />
     <Callback path="/callback" auth={auth} />
+    <NotFound path="/404" default />
     <NotFound path="*" default />
   </Router>
 );
