@@ -72,3 +72,18 @@ img {
     width: 100%;
   }
 }
+
+.error {
+  background-color: $grey-6;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 1px 1px 0 $grey-6;
+  font-weight: bold;
+  left: 50%;
+  padding: .8rem 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  transform: translate(-50%);
+  width: 20rem;
+  z-index: 999;
+}

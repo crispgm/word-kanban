@@ -4,7 +4,6 @@ function get(req, res) {
   const page = req.query.page || 1;
   const listId = req.query.listId || 1;
   const userId = req.user.sub;
-  console.log(req.query);
 
   models.Words.findAll({
     where: {

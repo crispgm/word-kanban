@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 
 import WordList from '../components/WordList';
+import ErrorMessage from '../components/ErrorMessage';
 import { createWord, moveWord } from '../data';
 
 export default class Kanban extends Component {
@@ -42,6 +43,9 @@ export default class Kanban extends Component {
           showCheckBox
           handleCheck={this.moveToInbox}
         />
+        {this.state.error &&
+          <ErrorMessage error={this.state.error} />
+        }
       </div>
     )
   }
@@ -80,11 +84,12 @@ export default class Kanban extends Component {
     inbox.splice(index, 1);
     history.splice(0, 0, word);
 
+    const self = this;
     moveWord(
       word.id,
       2,
       (json) => {
-        this.setState({
+        self.setState({
           inbox,
           history,
         });
@@ -108,9 +113,25 @@ export default class Kanban extends Component {
     history.splice(index, 1);
     inbox.splice(0, 0, word);
 
-    this.setState({
-      inbox,
-      history,
-    });
+    const self = this;
+    moveWord(
+      word.id,
+      1,
+      (json) => {
+        self.setState({
+          inbox,
+          history,
+        });
+        return true;
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Move failed.',
+          },
+        });
+        return false;
+      },
+    );
   }
 }

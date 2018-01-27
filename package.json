@@ -23,6 +23,7 @@
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
     "preact": "^8.2.7",
+    "preact-portal": "^1.1.2",
     "preact-router": "^2.6.0",
     "sequelize": "^4.31.1",
     "timeoutify-promise": "^0.2.0"
