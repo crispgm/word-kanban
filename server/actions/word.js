@@ -45,7 +45,7 @@ function create(req, res) {
   })
     .then((w) => {
       res.send({
-        status: 0,
+        status: w.status,
         id: w.id,
         text: w.text,
         listId: w.listId,
@@ -77,7 +77,39 @@ function move(req, res) {
     },
   }).then((w) => {
     res.send({
+      status: w.status,
+      id: w.id,
+      text: w.text,
+      listId: w.listId,
+      userId: w.userId,
+    });
+  })
+    .catch((error) => {
+      const message = 'Failed to move word';
+      console.error(message);
+      res.send({
+        status: -1,
+        message,
+      });
+    });
+}
+
+function update(req, res) {
+  const wordId = req.body.wordId;
+  const wordText = req.body.wordText;
+  const userId = req.user.sub;
+
+  models.Words.update({
+    text: wordText,
+  }, {
+    where: {
+      id: wordId,
+      userId,
       status: 0,
+    },
+  }).then((w) => {
+    res.send({
+      status: w.status,
       id: w.id,
       text: w.text,
       listId: w.listId,
@@ -98,4 +130,5 @@ module.exports = {
   create,
   get,
   move,
+  update,
 };

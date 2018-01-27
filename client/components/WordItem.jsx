@@ -1,5 +1,7 @@
 import { h, Component } from 'preact';
 
+import { updateWord } from '../data';
+
 export default class WordItem extends Component {
   constructor(props) {
     super(props);
@@ -7,6 +9,9 @@ export default class WordItem extends Component {
     this.handleCheck = this.handleCheck.bind(this);
     this.mouseOver = this.mouseOver.bind(this);
     this.mouseOut = this.mouseOut.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
 
     this.setState({
       word: props.word,
@@ -35,6 +40,48 @@ export default class WordItem extends Component {
     }
     // Since it is destroyed, we actually do nothing after handleCheck.
     // If we call `this.setState` here, the next element will inherit the checked box.
+  }
+
+  handleInput(e) {
+    if (e.target.innerText !== this.state.text) {
+      this.setState({
+        text: e.target.innerText,
+      });
+    }
+  }
+
+  handleEdit(e) {
+    if (e.target.innerText && e.target.innerText !== this.state.word.text) {
+      const self = this;
+      const newWord = this.state.word;
+      newWord.text = e.target.innerText;
+      updateWord(
+        this.state.word.id,
+        e.target.innerText,
+        (json) => {
+          self.setState({
+            text: e.target.innerText,
+            word: newWord,
+          });
+          return true;
+        },
+        () => {
+          self.setState({
+            error: {
+              message: 'Create failed.',
+            },
+          });
+          return false;
+        },
+      );
+    }
+  }
+
+  handleEnter(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.handleEdit(e);
+    }
   }
 
   mouseOver() {
@@ -83,7 +130,13 @@ export default class WordItem extends Component {
         }
         <div className="word-text" onMouseOut={this.mouseOut}>
           <div className="word-text-icon" onMouseOver={this.mouseOver}>➡️</div>
-          <div className="word-text-main">{this.state.text}</div>
+          <div className="word-text-main"
+            contenteditable="true"
+            onInput={this.handleInput}
+            onKeyPress={this.handleEnter}
+            onBlur={this.handleEdit}>
+            {this.state.text}
+          </div>
         </div>
       </div>
     );
