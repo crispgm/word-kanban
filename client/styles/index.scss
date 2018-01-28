@@ -16,6 +16,7 @@ $breakpoint: 45rem;
 @import 'header';
 @import 'footer';
 @import 'kanban';
+@import 'profile';
 
 html {
   font-size: 16px;
@@ -50,6 +51,7 @@ a {
 }
 
 img {
+  max-width: 100%;
   width: inherit;
 }
 
