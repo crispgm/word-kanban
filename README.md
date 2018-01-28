@@ -10,24 +10,30 @@ For demo use, please visit here <https://word-kanban.herokuapp.com/>.
 
 ## Development
 
-1. Clone & Init
+Clone & Init
 
-	```
-	$ git clone https://github.com/crispgm/word-kanban.git
-	$ yarn install
-	```
+```
+$ git clone https://github.com/crispgm/word-kanban.git
+$ yarn install
+```
 
-2. Migrate
+Migrate
 
-	```
-	$ node_modules/.bin/sequelize db:migrate
-	```
+```
+$ node_modules/.bin/sequelize db:migrate
+```
 
-3. Run
+Build
 
-	```
-	$ GOOGLE_TRANSLATE_API_KEY=your-api-key yarn start
-	```
+```
+$ yarn dev-build
+```
+
+Run
+
+```
+$ GOOGLE_TRANSLATE_API_KEY=your-api-key yarn start
+```
 
 ## Deploy with Heroku
 
