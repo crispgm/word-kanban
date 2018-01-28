@@ -1,0 +1,17 @@
+.profile {
+  .profile-picture {
+    float: right;
+
+    img {
+      max-height: 4.8rem;
+    }
+  }
+
+  .profile-name {
+    color: $grey-8;
+  }
+
+  .profile-logout {
+    margin: 1rem 0 0;
+  }
+}
