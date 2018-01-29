@@ -122,6 +122,7 @@ export default class WordItem extends Component {
   }
 
   render() {
+    const dictUrl = `https://www.merriam-webster.com/dictionary/${this.state.word.text}`;
     return (
       <div className="word-item">
         {this.props.showCheckBox &&
@@ -130,7 +131,9 @@ export default class WordItem extends Component {
           </div>
         }
         <div className="word-text">
-          <div className="word-text-icon" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>➡️</div>
+          <div className="word-text-icon" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+            <a href={dictUrl} target="_blank" rel="noopener noreferrer">➡️</a>
+          </div>
           <div className="word-text-main"
             contenteditable="true"
             onInput={this.handleInput}

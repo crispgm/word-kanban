@@ -33,6 +33,12 @@
     margin-right: .4rem;
   }
 
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   &:hover {
     .word-text-icon {
       display: block;
