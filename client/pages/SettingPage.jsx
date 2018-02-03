@@ -39,6 +39,11 @@ export default class AboutPage extends Component {
           )} 
           </p>
         </div>
+        <div className="setting-settings">
+          <h3>Integration</h3>
+          <p>Word Kanban provides a simple API for integrations.</p>
+          <p><a href="https://github.com/crispgm/word-kanban/tree/master/docs/integration.md">API Specification</a>.</p>
+        </div>
         <div className="setting-about">
           <h3>About</h3>
           <p>
