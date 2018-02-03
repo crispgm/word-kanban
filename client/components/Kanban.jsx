@@ -2,19 +2,23 @@ import { h, Component } from 'preact';
 
 import WordList from '../components/WordList';
 import ErrorMessage from '../components/ErrorMessage';
-import { createWord, moveWord } from '../data';
+import { createWord, moveWord, getWords } from '../data';
 
 export default class Kanban extends Component {
   constructor(props) {
     super(props);
 
-    this.moveToHistory = this.moveToHistory.bind(this);
     this.moveToInbox = this.moveToInbox.bind(this);
+    this.moveToHistory = this.moveToHistory.bind(this);
     this.newEntry = this.newEntry.bind(this);
+    this.inboxMore = this.inboxMore.bind(this);
+    this.historyMore = this.historyMore.bind(this);
 
     this.setState({
       inbox: props.inbox,
+      inboxPage: 1,
       history: props.history,
+      historyPage: 1,
     });
   }
 
@@ -31,17 +35,19 @@ export default class Kanban extends Component {
         <WordList
           title="📥 Inbox"
           words={this.state.inbox}
+          showCheckBox
           showInput
           handleInput={this.newEntry}
-          showCheckBox
-          handleCheck={this.moveToHistory} 
+          handleCheck={this.moveToHistory}
+          handleMore={this.inboxMore}
         />
         <WordList
           title="📝 Done"
           words={this.state.history}
-          showCollapse
           showCheckBox
+          showCollapse
           handleCheck={this.moveToInbox}
+          handleMore={this.historyMore}
         />
         {this.state.error &&
           <ErrorMessage error={this.state.error} />
@@ -131,6 +137,56 @@ export default class Kanban extends Component {
           },
         });
         return false;
+      },
+    );
+  }
+
+  inboxMore() {
+    const self = this;
+    getWords(
+      1,
+      this.state.inboxPage + 1,
+      (json) => {
+        if (!json.words || json.words.length === 0) {
+          alert('No more words.');
+          return false;
+        }
+        self.setState({
+          inbox: this.state.inbox.concat(json.words),
+          inboxPage: this.state.inboxPage + 1,
+        });
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Loading failed.',
+          },
+        });
+      },
+    );
+  }
+
+  historyMore() {
+    const self = this;
+    getWords(
+      2,
+      this.state.historyPage + 1,
+      (json) => {
+        if (!json.words || json.words.length === 0) {
+          alert('No more words.');
+          return false;
+        }
+        self.setState({
+          history: this.state.history.concat(json.words),
+          historyPage: this.state.historyPage + 1,
+        });
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Loading failed.',
+          },
+        });
       },
     );
   }

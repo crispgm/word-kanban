@@ -24,6 +24,7 @@ export default class HomePage extends Component {
 
     getWords(
       1,
+      1,
       (json) => {
         self.setState({
           inbox: json.words,
@@ -40,6 +41,7 @@ export default class HomePage extends Component {
 
     getWords(
       2,
+      1,
       (json) => {
         self.setState({
           history: json.words,

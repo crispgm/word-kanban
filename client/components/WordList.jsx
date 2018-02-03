@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 import WordItem from './WordItem';
 import WordInput from './WordInput';
 import WordCollapse from './WordCollapse';
+import WordMore from './WordMore';
 
 export default class WordList extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class WordList extends Component {
       words: props.words,
       collapsed: true,
       collapseText: 'Show...',
+      moreText: 'More...',
     });
 
     this.handleCollapse = this.handleCollapse.bind(this);
@@ -44,7 +46,7 @@ export default class WordList extends Component {
           <WordCollapse text={this.state.collapseText} handleCollapse={this.handleCollapse} />
         }
         {(!this.props.showCollapse || !this.state.collapsed) &&
-          <div>
+          <div className="word-list-container">
             {this.state.words.map((word, index) =>
               <WordItem
                 word={word}
@@ -53,6 +55,9 @@ export default class WordList extends Component {
                 handleCheck={this.props.handleCheck}
               />
             )}
+            <div className="word-more">
+              <WordMore text={this.state.moreText} handleMore={this.props.handleMore} />
+            </div>
           </div>
         }
       </div>
