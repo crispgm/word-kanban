@@ -44,6 +44,9 @@ export default class AboutPage extends Component {
           <p>
             Word Kanban is a simple Kanban-like word book.
           </p>
+          <p>
+            <a href="https://github.com/crispgm/word-kanban">Fork on GitHub</a>.
+          </p>
         </div>
       </div>
     )
