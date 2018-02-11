@@ -117,7 +117,38 @@ function update(req, res) {
     });
   })
     .catch((error) => {
-      const message = 'Failed to move word';
+      const message = 'Failed to update word';
+      console.error(message);
+      res.send({
+        status: -1,
+        message,
+      });
+    });
+}
+
+function remove(req, res) {
+  const wordId = req.body.wordId;
+  const userId = req.user.sub;
+
+  models.Words.update({
+    status: 1,
+  }, {
+    where: {
+      id: wordId,
+      userId,
+      status: 0,
+    },
+  }).then((w) => {
+    res.send({
+      status: w.status,
+      id: w.id,
+      text: w.text,
+      listId: w.listId,
+      userId: w.userId,
+    });
+  })
+    .catch((error) => {
+      const message = 'Failed to remove word';
       console.error(message);
       res.send({
         status: -1,
@@ -131,4 +162,5 @@ module.exports = {
   get,
   move,
   update,
+  remove,
 };

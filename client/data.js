@@ -74,3 +74,9 @@ export function updateWord(wordId, wordText, callback, timeout) {
     wordText,
   }, callback, timeout);
 }
+
+export function deleteWord(wordId, callback, timeout) {
+  postData('/word/delete', {
+    wordId,
+  }, callback, timeout);
+}
