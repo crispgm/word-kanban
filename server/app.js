@@ -15,6 +15,7 @@ const cors = require('cors');
 const app = express();
 const Word = require('./actions/word');
 const { translate } = require('./actions/translate');
+const API = require('./actions/api');
 
 // webpack-dev-middleware
 if (process.env.NODE_ENV !== 'production') {
@@ -89,6 +90,26 @@ app.post('/word/update', checkJwt, (req, res) => {
 
 app.post('/word/delete', checkJwt, (req, res) => {
   return Word.remove(req, res);
+});
+
+app.get('/api/token', checkJwt, (req, res) => {
+  return API.getToken(req, res);
+});
+
+app.post('/api/generate', checkJwt, (req, res) => {
+  return API.generateToken(req, res);
+});
+
+app.post('/api/delete', checkJwt, (req, res) => {
+  return API.deleteToken(req, res);
+});
+
+app.post('/api/v1/word', (req, res) => {
+  return API.createWord(req, res);
+});
+
+app.get('/api/v1/words', (req, res) => {
+  return API.getWords(req, res);
 });
 
 // Always return the main index.html

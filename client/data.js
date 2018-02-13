@@ -80,3 +80,15 @@ export function deleteWord(wordId, callback, timeout) {
     wordId,
   }, callback, timeout);
 }
+
+export function getToken(callback, timeout) {
+  getData('/api/token', callback, timeout);
+}
+
+export function generateToken(callback, timeout) {
+  postData('/api/generate', {}, callback, timeout);
+}
+
+export function deleteToken(callback, timeout) {
+  postData('/api/delete', {}, callback, timeout);
+}

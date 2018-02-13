@@ -1,5 +1,7 @@
 import { h, Component } from 'preact';
 
+import { getToken, generateToken, deleteToken } from '../data';
+
 export default class AboutPage extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +17,101 @@ export default class AboutPage extends Component {
     }
 
     this.logout = this.logout.bind(this);
+    this.handleGenerate = this.handleGenerate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+
+    this.setState({
+      token: '-',
+    });
+  }
+
+  componentWillMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    const self = this;
+
+    getToken(
+      (json) => {
+        if (json.error !== 'success') {
+          self.setState({
+            token: json.token,
+          });
+        } else {
+          self.setState({
+            error: {
+              message: json.error,
+            },
+          });
+        }
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Loading failed.',
+          },
+        });
+      },
+    );
   }
 
   logout() {
     this.props.auth.logout();
+  }
+
+  handleGenerate(e) {
+    const self = this;
+
+    generateToken(
+      (json) => {
+        if (json.status === 0) {
+          self.setState({
+            token: json.token,
+          });
+        } else {
+          self.setState({
+            error: {
+              message: json.message,
+            },
+          });
+        }
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Generate token error.',
+          },
+        });
+      },
+    );
+  }
+
+  handleDelete(e) {
+    const self = this;
+
+    deleteToken(
+      (json) => {
+        if (json.status === 0) {
+          self.setState({
+            token: '-',
+          });
+        } else {
+          self.setState({
+            error: {
+              message: json.message,
+            },
+          });
+        }
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Delete token error.',
+          },
+        });
+      },
+    );
   }
 
   render() {
@@ -37,6 +130,17 @@ export default class AboutPage extends Component {
               <div className="profile-logout"><input type="button" value="Logout" onClick={this.logout} /></div>
             </div>
           )} 
+          </p>
+        </div>
+        <div className="setting-settings">
+          <h3>Integration</h3>
+          <p>
+            Word Kanban provides a simple API for integrations. <a href="https://github.com/crispgm/word-kanban/tree/master/docs/integration.md">Documentation and API Specification</a>.
+          </p>
+          <p>
+            <input type="text" value={this.state.token} readonly />
+            <input type="button" value="Generate" onClick={this.handleGenerate} />
+            <input type="button" value="Delete" onClick={this.handleDelete} className="input-btn-delete" />
           </p>
         </div>
         <div className="setting-about">
