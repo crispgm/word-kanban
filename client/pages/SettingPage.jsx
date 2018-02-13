@@ -15,10 +15,22 @@ export default class AboutPage extends Component {
     }
 
     this.logout = this.logout.bind(this);
+    this.handleGenerate = this.handleGenerate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+
+    this.setState({
+      token: '-',
+    });
   }
 
   logout() {
     this.props.auth.logout();
+  }
+
+  handleGenerate(e) {
+  }
+
+  handleDelete(e) {
   }
 
   render() {
@@ -41,8 +53,12 @@ export default class AboutPage extends Component {
         </div>
         <div className="setting-settings">
           <h3>Integration</h3>
-          <p>Word Kanban provides a simple API for integrations.</p>
-          <p><a href="https://github.com/crispgm/word-kanban/tree/master/docs/integration.md">API Specification</a>.</p>
+          <p>Word Kanban provides a simple API for integrations. <a href="https://github.com/crispgm/word-kanban/tree/master/docs/integration.md">API Specification</a>.</p>
+          <p>
+            <input type="text" value={this.state.token} readonly />
+            <input type="button" value="Generate" onClick={this.handleGenerate} />
+            <input type="button" value="Delete" onClick={this.handleDelete} className="input-btn-delete" />
+          </p>
         </div>
         <div className="setting-about">
           <h3>About</h3>
