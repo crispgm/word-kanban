@@ -3,4 +3,5 @@ const TOKEN_PRIVATE_KEY = process.env.TOKEN_PRIVATE_KEY || '123';
 
 module.exports = {
   GOOGLE_TRANSLATE_API_KEY,
+  TOKEN_PRIVATE_KEY,
 };

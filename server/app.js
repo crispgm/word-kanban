@@ -104,8 +104,12 @@ app.post('/api/delete', checkJwt, (req, res) => {
   return API.deleteToken(req, res);
 });
 
-app.post('/api/v1/word/create', (req, res) => {
+app.post('/api/v1/word', (req, res) => {
   return API.createWord(req, res);
+});
+
+app.get('/api/v1/words', (req, res) => {
+  return API.getWords(req, res);
 });
 
 // Always return the main index.html
