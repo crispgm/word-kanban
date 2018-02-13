@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 
 import WordList from '../components/WordList';
 import ErrorMessage from '../components/ErrorMessage';
-import { createWord, moveWord, getWords } from '../data';
+import { createWord, moveWord, getWords, deleteWord } from '../data';
 
 export default class Kanban extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ export default class Kanban extends Component {
     this.newEntry = this.newEntry.bind(this);
     this.inboxMore = this.inboxMore.bind(this);
     this.historyMore = this.historyMore.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
 
     this.setState({
       inbox: props.inbox,
@@ -40,6 +41,7 @@ export default class Kanban extends Component {
           handleInput={this.newEntry}
           handleCheck={this.moveToHistory}
           handleMore={this.inboxMore}
+          handleDelete={this.handleDelete}
         />
         <WordList
           title="📝 Done"
@@ -48,6 +50,7 @@ export default class Kanban extends Component {
           showCollapse
           handleCheck={this.moveToInbox}
           handleMore={this.historyMore}
+          handleDelete={this.handleDelete}
         />
         {this.state.error &&
           <ErrorMessage error={this.state.error} />
@@ -187,6 +190,41 @@ export default class Kanban extends Component {
             message: 'Loading failed.',
           },
         });
+      },
+    );
+  }
+
+  handleDelete(word) {
+    const self = this;
+    deleteWord(
+      word.id,
+      (json) => {
+        let wordList = [];
+        if (word.listId === 1) {
+          wordList = self.state.inbox;
+        } else if (word.listId === 2) {
+          wordList = self.state.history;
+        }
+        for (let [index, item] of wordList.entries()) {
+          if (item.id === word.id) {
+            wordList.splice(index, 1);
+            if (word.listId === 1) {
+              self.setState({ inbox: wordList });
+            } else if (word.listId === 2) {
+              self.setState({ history: wordList });
+            }
+            break;
+          }
+        }
+        return true;
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Delete failed.',
+          },
+        });
+        return false;
       },
     );
   }

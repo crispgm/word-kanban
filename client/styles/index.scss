@@ -24,13 +24,13 @@ html {
 
 @media (max-width: $breakpoint) {
   html {
-    font-size: 12px;
+    font-size: 24px;
   }
 }
 
 body {
   background-color: $white;
-  color: $pink-6;
+  color: $grey-8;
   font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", Helvetica, Arial, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
@@ -39,6 +39,14 @@ body {
   text-align: center;
   width: 100%;
   word-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $pink-6;
 }
 
 a {

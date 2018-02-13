@@ -53,6 +53,7 @@ export default class WordList extends Component {
                 index={index}
                 showCheckBox={this.props.showCheckBox}
                 handleCheck={this.props.handleCheck}
+                handleDelete={this.props.handleDelete}
               />
             )}
             <div className="word-more">

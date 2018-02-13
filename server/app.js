@@ -87,6 +87,10 @@ app.post('/word/update', checkJwt, (req, res) => {
   return Word.update(req, res);
 });
 
+app.post('/word/delete', checkJwt, (req, res) => {
+  return Word.remove(req, res);
+});
+
 // Always return the main index.html
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));

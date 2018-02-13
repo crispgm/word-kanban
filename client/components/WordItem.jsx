@@ -52,29 +52,36 @@ export default class WordItem extends Component {
   }
 
   handleEdit(e) {
-    if (e.target.innerText && e.target.innerText !== this.state.word.text) {
+    if (e.target.innerText !== this.state.word.text) {
       const self = this;
       const newWord = this.state.word;
       newWord.text = e.target.innerText;
-      updateWord(
-        this.state.word.id,
-        e.target.innerText,
-        (json) => {
-          self.setState({
-            text: e.target.innerText,
-            word: newWord,
-          });
-          return true;
-        },
-        () => {
-          self.setState({
-            error: {
-              message: 'Create failed.',
-            },
-          });
-          return false;
-        },
-      );
+      // update
+      if (e.target.innerText) {
+        updateWord(
+          this.state.word.id,
+          e.target.innerText,
+          (json) => {
+            self.setState({
+              text: e.target.innerText,
+              word: newWord,
+            });
+            return true;
+          },
+          () => {
+            self.setState({
+              error: {
+                message: 'Create failed.',
+              },
+            });
+            return false;
+          },
+        );
+      }
+      // delete
+      if (e.target.innerText === '') {
+        this.props.handleDelete(newWord);
+      }
     }
   }
 
