@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
+import HeatChart from '../components/HeatChart';
 
-import { getToken, generateToken, deleteToken } from '../data';
+import { userActivity, getToken, generateToken, deleteToken } from '../data';
 
 export default class AboutPage extends Component {
   constructor(props) {
@@ -22,14 +23,47 @@ export default class AboutPage extends Component {
 
     this.setState({
       token: '-',
+      activity: [],
     });
   }
 
   componentWillMount() {
-    this.fetchData();
+    this.fetchUserActivity();
+    this.fetchUserToken();
   }
 
-  fetchData() {
+  fetchUserActivity() {
+    const self = this;
+
+    userActivity(
+      (json) => {
+        if (json.error !== 'success') {
+          let data = []
+          for (let day of json.data) {
+            data.push(parseInt(day.count));
+          }
+          self.setState({
+            activity: data,
+          });
+        } else {
+          self.setState({
+            error: {
+              message: json.error,
+            },
+          });
+        }
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Loading failed.',
+          },
+        });
+      },
+    );
+  }
+
+  fetchUserToken() {
     const self = this;
 
     getToken(
@@ -131,6 +165,12 @@ export default class AboutPage extends Component {
             </div>
           )} 
           </p>
+        </div>
+        <div className="setting-settings">
+          <h3>Activities</h3>
+          {this.state.activity.length > 2 &&
+            <HeatChart data={this.state.activity} />
+          }
         </div>
         <div className="setting-settings">
           <h3>Integration</h3>
