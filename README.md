@@ -32,8 +32,10 @@ $ yarn dev-build
 Run
 
 ```
-$ GOOGLE_TRANSLATE_API_KEY=your-api-key yarn start
+$ GOOGLE_TRANSLATE_API_KEY=your-google-api-key yarn start
 ```
+
+Note: You may run without a `GOOGLE_TRANSLATE_API_KEY`. However, the hover translation will definitely not work.
 
 ## Deploy with Heroku
 
