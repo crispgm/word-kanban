@@ -176,7 +176,7 @@ function userRecord(req, res) {
     }
     /* eslint-disable no-plusplus */
     for (let i = 0; i < 30; i++) {
-      const today = moment({ hour: 8 });
+      const today = moment({ hour: 0 });
       const curDay = today.subtract(i, 'days').unix();
       if (dataCollected[curDay]) {
         data.push({ day: curDay, count: dataCollected[curDay] });
