@@ -1,4 +1,5 @@
 const models = require('../models');
+const moment = require('moment');
 /* eslint-disable no-unused-vars */
 function get(req, res) {
   const page = req.query.page || 1;
@@ -157,10 +158,44 @@ function remove(req, res) {
     });
 }
 
+function userRecord(req, res) {
+  const userId = req.user.sub;
+
+  models.sequelize.query(
+    `SELECT date_trunc('day', "Words"."createdAt") as "day", count("Words"."id") AS "words_cnt"
+     FROM "Words" WHERE "Words"."userId"='${userId}'
+     GROUP BY date_trunc('day', "Words"."createdAt")
+     ORDER BY day DESC LIMIT 30`,
+    { raw: true },
+  ).then((result) => {
+    const rows = result[0];
+    const dataCollected = {};
+    let data = [];
+    for (let row of rows) {
+      dataCollected[moment(row.day).unix()] = row.words_cnt;
+    }
+    /* eslint-disable no-plusplus */
+    for (let i = 0; i < 30; i++) {
+      const today = moment({ hour: 8 });
+      const curDay = today.subtract(i, 'days').unix();
+      if (dataCollected[curDay]) {
+        data.push({ day: curDay, count: dataCollected[curDay] });
+      } else {
+        data.push({ day: curDay, count: 0 });
+      }
+    }
+    res.send({
+      status: 0,
+      data,
+    });
+  });
+}
+
 module.exports = {
   create,
   get,
   move,
   update,
   remove,
+  userRecord,
 };

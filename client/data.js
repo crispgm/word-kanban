@@ -81,6 +81,10 @@ export function deleteWord(wordId, callback, timeout) {
   }, callback, timeout);
 }
 
+export function userActivity(callback, timeout) {
+  getData('/user/activity', callback, timeout);
+}
+
 export function getToken(callback, timeout) {
   getData('/api/token', callback, timeout);
 }
