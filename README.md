@@ -50,7 +50,8 @@ Set config vars
 
 ```
 $ heroku config:set NPM_CONFIG_PRODUCTION=false
-$ heroku config:set GOOGLE_TRANSLATE_API_KEY=your-api-key
+$ heroku config:set GOOGLE_TRANSLATE_API_KEY=your-google-api-key
+$ heroku config:set TOKEN_PRIVATE_KEY=your-private-token
 ```
 
 Create DB
