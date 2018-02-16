@@ -23,7 +23,7 @@ export default class AboutPage extends Component {
 
     this.setState({
       token: '-',
-      activity: [0, 0],
+      activity: [],
     });
   }
 
@@ -168,7 +168,9 @@ export default class AboutPage extends Component {
         </div>
         <div className="setting-settings">
           <h3>Activities</h3>
-          <HeatChart data={this.state.activity} />
+          {this.state.activity.length > 2 &&
+            <HeatChart data={this.state.activity} />
+          }
         </div>
         <div className="setting-settings">
           <h3>Integration</h3>
