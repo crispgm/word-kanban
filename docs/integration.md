@@ -23,6 +23,7 @@ POST https://word-kanban.herokuapp.com/api/v1/word
 
 | Name | Type | Description |
 |----|----|----|
+| token | String | **Required**. API Token. |
 | word | String | **Required**. New word to add. |
 
 #### Get a list of word
@@ -33,5 +34,6 @@ GET https://word-kanban.herokuapp.com/api/v1/words
 
 | Name | Type | Description |
 |----|----|----|
+| token | String | **Required**. API Token. |
 | listId | Integer | **Optional**. List ID, 1 for inbox, 2 for history. Default 1. |
 | page | Integer | **Optional**. Page, default 1. |
