@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import ErrorMessage from '../components/ErrorMessage';
 import HeatChart from '../components/HeatChart';
 
 import { userActivity, getToken, generateToken, deleteToken } from '../data';
@@ -18,6 +19,7 @@ export default class AboutPage extends Component {
     }
 
     this.logout = this.logout.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
     this.handleGenerate = this.handleGenerate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
 
@@ -148,6 +150,16 @@ export default class AboutPage extends Component {
     );
   }
 
+  handleCopy(e) {
+    this._input.select();
+    const successful = document.execCommand('copy');
+    this.setState({
+      error: {
+        message: successful ? 'Copied to clipboard.' : 'Copy failed.',
+      },
+    });
+  }
+
   render() {
     const { isAuthenticated } = this.props.auth;
     const { profile } = this.state;
@@ -178,7 +190,8 @@ export default class AboutPage extends Component {
             Word Kanban provides a simple API for integrations. <a href="https://github.com/crispgm/word-kanban/tree/master/docs/integration.md">Documentation and API Specification</a>.
           </p>
           <p>
-            <input type="text" value={this.state.token} readonly />
+            <input type="text" value={this.state.token} readonly ref={(input) => { this._input = input; }} />
+            <input type="button" value="Copy" onClick={this.handleCopy} />
             <input type="button" value="Generate" onClick={this.handleGenerate} />
             <input type="button" value="Delete" onClick={this.handleDelete} className="input-btn-delete" />
           </p>
@@ -192,6 +205,9 @@ export default class AboutPage extends Component {
             <a href="https://github.com/crispgm/word-kanban">Fork on GitHub</a>.
           </p>
         </div>
+        {this.state.error &&
+          <ErrorMessage error={this.state.error} />
+        }
       </div>
     )
   }
