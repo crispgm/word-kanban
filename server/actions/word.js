@@ -165,7 +165,7 @@ function userRecord(req, res) {
     `SELECT date_trunc('day', "Words"."createdAt") as "day", count("Words"."id") AS "words_cnt"
      FROM "Words" WHERE "Words"."userId"='${userId}'
      GROUP BY date_trunc('day', "Words"."createdAt")
-     ORDER BY day DESC LIMIT 30`,
+     ORDER BY day ASC LIMIT 30`,
     { raw: true },
   ).then((result) => {
     const rows = result[0];
