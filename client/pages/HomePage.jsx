@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 
 import Kanban from '../components/Kanban';
+import Landing from '../components/Landing';
 import { getWords } from '../data';
 
 export default class HomePage extends Component {
@@ -10,13 +11,14 @@ export default class HomePage extends Component {
     this.setState({
       inbox: [],
       history: [],
+      isAuthenticated: false,
     });
-
-    this.login.bind(this);
   }
 
   componentWillMount() {
-    this.fetchData();
+    if (this.isAuthenticated) {
+      this.fetchData();
+    }
   }
 
   fetchData() {
@@ -57,19 +59,24 @@ export default class HomePage extends Component {
     );
   }
 
-  login() {
-    this.props.auth.login();
-  }
-
   render() {
     const { isAuthenticated } = this.props.auth;
+    this.isAuthenticated = isAuthenticated;
+
+    let content;
     if (!isAuthenticated()) {
-      this.login();
+      content = (
+        <Landing login={this.props.auth.login} />
+      );
+    } else {
+      content = (
+        <Kanban inbox={this.state.inbox} history={this.state.history} />
+      );
     }
 
     return (
       <div class="container">
-        <Kanban inbox={this.state.inbox} history={this.state.history} />
+        {content}
       </div>
     )
   }

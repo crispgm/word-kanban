@@ -1,0 +1,99 @@
+.landing {
+  background: url('/public/landing-landscape.jpg') no-repeat;
+  background-size: cover;
+  color: $white;
+  font-size: 1rem;
+  padding: .4rem .8rem;
+}
+
+.intro {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.intro-text {
+  background-color: $grey-8;
+  font-size: 1.8rem;
+  margin: 0 auto;
+  width: 30rem;
+}
+
+.resources {
+  color: $grey-8;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.resource {
+  background-color: $pink-2;
+  margin-right: 1rem;
+  word-break: keep-all;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.footnotes {
+  font-size: .8rem;
+  text-align: center;
+}
+
+.footnote {
+  font-size: .8rem;
+  margin-top: .8rem;
+  padding-left: .4rem;
+}
+
+.login-buttons {
+  margin: 5rem 0 4.8rem;
+  text-align: center;
+
+  a {
+    background-color: $pink-6;
+    border: 1px solid $pink-6;
+    border-radius: 4px;
+    color: $grey-8;
+    font-size: 1rem;
+    margin: 0 .4rem 0 0;
+    padding: .2rem .8rem;
+    width: 4rem;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: $breakpoint) {
+  .landing {
+    background: url('/public/landing-portrait.jpg') no-repeat;
+    background-size: cover;
+  }
+
+  .intro {
+    text-align: left;
+  }
+
+  .intro-text {
+    font-size: 1.2rem;
+    width: auto;
+  }
+
+  .login-buttons {
+    margin: 3rem 0 3.2rem;
+  }
+
+  .footnotes {
+    font-size: .8rem;
+  }
+
+  .resource {
+    font-size: .8rem;
+    margin-right: .4rem;
+  }
+}
