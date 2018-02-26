@@ -8,15 +8,17 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props);
 
+    const { isAuthenticated } = this.props.auth;
+
     this.setState({
       inbox: [],
       history: [],
-      isAuthenticated: false,
+      isAuthenticated: isAuthenticated(),
     });
   }
 
   componentWillMount() {
-    if (this.isAuthenticated) {
+    if (this.state.isAuthenticated) {
       this.fetchData();
     }
   }
@@ -60,11 +62,8 @@ export default class HomePage extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
-    this.isAuthenticated = isAuthenticated;
-
     let content;
-    if (!isAuthenticated()) {
+    if (!this.state.isAuthenticated) {
       content = (
         <Landing login={this.props.auth.login} />
       );
