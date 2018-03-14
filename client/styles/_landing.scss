@@ -1,7 +1,5 @@
 .landing {
-  background: url('/public/landing-landscape.jpg') no-repeat;
-  background-size: cover;
-  color: $white;
+  color: $grey-8;
   font-size: 1rem;
   padding: .4rem .8rem;
 }
@@ -11,8 +9,12 @@
   text-align: center;
 }
 
+.intro-title {
+  margin: 4rem 0;
+}
+
 .intro-text {
-  background-color: $grey-8;
+  color: $grey-8;
   font-size: 1.8rem;
   margin: 0 auto;
   width: 30rem;
@@ -27,22 +29,12 @@
 .resource {
   background-color: $pink-2;
   margin-right: 1rem;
+  padding: 2px 4px;
   word-break: keep-all;
 
   &:last-of-type {
     margin-right: 0;
   }
-}
-
-.footnotes {
-  font-size: .8rem;
-  text-align: center;
-}
-
-.footnote {
-  font-size: .8rem;
-  margin-top: .8rem;
-  padding-left: .4rem;
 }
 
 .login-buttons {
@@ -70,11 +62,6 @@
 }
 
 @media (max-width: $breakpoint) {
-  .landing {
-    background: url('/public/landing-portrait.jpg') no-repeat;
-    background-size: cover;
-  }
-
   .intro {
     text-align: left;
   }
@@ -86,10 +73,6 @@
 
   .login-buttons {
     margin: 3rem 0 3.2rem;
-  }
-
-  .footnotes {
-    font-size: .8rem;
   }
 
   .resource {
