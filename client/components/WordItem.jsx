@@ -96,9 +96,6 @@ export default class WordItem extends Component {
     this.setState({ flipped: true });
 
     if (this.state.translation) {
-      this.setState({
-        text: this.state.translation,
-      });
       return;
     }
 
@@ -113,18 +110,11 @@ export default class WordItem extends Component {
       if (result) {
         const translation = result[0].translatedText;
         this.setState({ translation });
-        if (this.state.flipped) {
-          this.setState({ text: translation });
-        }
       }
     });
   }
 
   mouseOut() {
-    if (this.state.flipped) {
-      // disable
-      this.setState({ text: this.state.word.text });
-    }
     this.setState({ flipped: false });
   }
 
@@ -148,6 +138,11 @@ export default class WordItem extends Component {
             onBlur={this.handleEdit}>
             {this.state.text}
           </div>
+          {this.state.flipped &&
+            <div className="word-text-translation">
+              {this.state.translation}
+            </div>
+          }
         </div>
       </div>
     );

@@ -30,6 +30,12 @@
   vertical-align: bottom;
   width: 100%;
 
+  .word-text-translation {
+    border-top: 1px solid $pink-0;
+    margin-top: .2rem;
+    padding-top: .2rem;
+  }
+
   .word-text-icon {
     display: none;
     float: right;
