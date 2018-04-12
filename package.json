@@ -30,7 +30,8 @@
     "preact-router": "^2.6.0",
     "react-trend": "^1.2.4",
     "sequelize": "^4.31.1",
-    "timeoutify-promise": "^0.2.0"
+    "timeoutify-promise": "^0.2.0",
+    "unistore": "^3.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
