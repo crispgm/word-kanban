@@ -7,7 +7,7 @@
   "author": "David Zhang <crispgm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "auth0-js": "^9.1.1",
+    "auth0-js": "^9.5.1",
     "blueimp-md5": "^2.10.0",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
