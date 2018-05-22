@@ -8,6 +8,10 @@ export default class AboutPage extends Component {
   constructor(props) {
     super(props);
 
+    if (!this.props.auth.isAuthenticated()) {
+      window.location.href = '/';
+    }
+
     this.setState({ profile: {} });
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
