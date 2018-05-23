@@ -1,3 +1,4 @@
+import fetch from 'unfetch';
 import timeoutify from 'timeoutify-promise';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
