@@ -97,7 +97,7 @@ export default class Kanban extends Component {
     moveWord(
       word.id,
       2,
-      (json) => {
+      () => {
         self.setState({
           inbox,
           history,
@@ -126,7 +126,7 @@ export default class Kanban extends Component {
     moveWord(
       word.id,
       1,
-      (json) => {
+      () => {
         self.setState({
           inbox,
           history,
@@ -151,13 +151,18 @@ export default class Kanban extends Component {
       this.state.inboxPage + 1,
       (json) => {
         if (!json.words || json.words.length === 0) {
-          alert('No more words.');
+          self.setState({
+            error: {
+              message: 'No more words.',
+            },
+          });
           return false;
         }
         self.setState({
           inbox: this.state.inbox.concat(json.words),
           inboxPage: this.state.inboxPage + 1,
         });
+        return true;
       },
       () => {
         self.setState({
@@ -176,13 +181,18 @@ export default class Kanban extends Component {
       this.state.historyPage + 1,
       (json) => {
         if (!json.words || json.words.length === 0) {
-          alert('No more words.');
+          self.setState({
+            error: {
+              message: 'No more words.',
+            },
+          });
           return false;
         }
         self.setState({
           history: this.state.history.concat(json.words),
           historyPage: this.state.historyPage + 1,
         });
+        return true;
       },
       () => {
         self.setState({
@@ -198,14 +208,14 @@ export default class Kanban extends Component {
     const self = this;
     deleteWord(
       word.id,
-      (json) => {
+      () => {
         let wordList = [];
         if (word.listId === 1) {
           wordList = self.state.inbox;
         } else if (word.listId === 2) {
           wordList = self.state.history;
         }
-        for (let [index, item] of wordList.entries()) {
+        for (const [index, item] of wordList.entries()) {
           if (item.id === word.id) {
             wordList.splice(index, 1);
             if (word.listId === 1) {
