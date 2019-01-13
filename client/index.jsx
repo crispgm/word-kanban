@@ -1,7 +1,6 @@
 // client/index.js
 import Router from 'preact-router';
 import { h, render } from 'preact';
-import { createHashHistory } from 'history';
 // pages
 import HomePage from './pages/HomePage';
 import SettingPage from './pages/SettingPage';
