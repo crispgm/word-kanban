@@ -170,8 +170,8 @@ function userRecord(req, res) {
   ).then((result) => {
     const rows = result[0];
     const dataCollected = {};
-    let data = [];
-    for (let row of rows) {
+    const data = [];
+    for (const row of rows) {
       dataCollected[moment(row.day).unix()] = row.words_cnt;
     }
     /* eslint-disable no-plusplus */
@@ -191,6 +191,41 @@ function userRecord(req, res) {
   });
 }
 
+function exportData(req, res) {
+  const userId = req.user.sub;
+
+  models.Words.findAll({
+    where: {
+      listId: [1, 2],
+      userId,
+      status: 0,
+    },
+    order: [
+      ['id', 'DESC'],
+    ],
+    group: ['listId', 'id'],
+  }).then((words) => {
+    const inbox = [];
+    const history = [];
+    for (const item of words) {
+      if (item.listId === 1) {
+        inbox.push(item);
+      } else if (item.listId === 2) {
+        history.push(item);
+      }
+    }
+    res.set({
+      'Content-Disposition': `attachment; filename=word-kanban-${userId}.json`,
+    });
+    res.send({
+      words: {
+        inbox,
+        history,
+      },
+    });
+  });
+}
+
 module.exports = {
   create,
   get,
@@ -198,4 +233,5 @@ module.exports = {
   update,
   remove,
   userRecord,
+  exportData,
 };

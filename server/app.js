@@ -92,6 +92,10 @@ app.post('/word/delete', checkJwt, (req, res) => {
   return Word.remove(req, res);
 });
 
+app.get('/word/export', checkJwt, (req, res) => {
+  return Word.exportData(req, res);
+});
+
 app.get('/user/activity', checkJwt, (req, res) => {
   return Word.userRecord(req, res);
 });

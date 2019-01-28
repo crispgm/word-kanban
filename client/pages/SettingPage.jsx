@@ -26,6 +26,7 @@ export default class AboutPage extends Component {
     this.handleCopy = this.handleCopy.bind(this);
     this.handleGenerate = this.handleGenerate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleExportJSON = this.handleExportJSON.bind(this);
 
     this.setState({
       token: '-',
@@ -44,9 +45,9 @@ export default class AboutPage extends Component {
     userActivity(
       (json) => {
         if (json.error !== 'success') {
-          let data = []
-          for (let day of json.data) {
-            data.push(parseInt(day.count));
+          const data = [];
+          for (const day of json.data) {
+            data.push(parseInt(day.count, 10));
           }
           self.setState({
             activity: data,
@@ -164,6 +165,10 @@ export default class AboutPage extends Component {
     });
   }
 
+  handleExportJSON() {
+    window.location.href = '/word/export';
+  }
+
   render() {
     const { isAuthenticated } = this.props.auth;
     const { profile } = this.state;
@@ -198,6 +203,12 @@ export default class AboutPage extends Component {
             <input type="button" value="Copy" onClick={this.handleCopy} />
             <input type="button" value="Generate" onClick={this.handleGenerate} />
             <input type="button" value="Delete" onClick={this.handleDelete} className="input-btn-delete" />
+          </p>
+        </div>
+        <div className="setting-settings">
+          <h3>Data Export</h3>
+          <p>
+            <input type="button" value="Export JSON" onClick={this.handleExportJSON} />
           </p>
         </div>
         <div className="setting-about">
