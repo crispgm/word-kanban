@@ -86,6 +86,10 @@ export function userActivity(callback, timeout) {
   getData('/user/activity', callback, timeout);
 }
 
+export function exportData(callback, timeout) {
+  getData('/word/export', callback, timeout);
+}
+
 export function getToken(callback, timeout) {
   getData('/api/token', callback, timeout);
 }

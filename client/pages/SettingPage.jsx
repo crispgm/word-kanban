@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import ErrorMessage from '../components/ErrorMessage';
 import HeatChart from '../components/HeatChart';
 
-import { userActivity, getToken, generateToken, deleteToken } from '../data';
+import { userActivity, getToken, generateToken, deleteToken, exportData } from '../data';
 
 export default class AboutPage extends Component {
   constructor(props) {
@@ -101,7 +101,7 @@ export default class AboutPage extends Component {
     this.props.auth.logout();
   }
 
-  handleGenerate(e) {
+  handleGenerate() {
     const self = this;
 
     generateToken(
@@ -128,7 +128,7 @@ export default class AboutPage extends Component {
     );
   }
 
-  handleDelete(e) {
+  handleDelete() {
     const self = this;
 
     deleteToken(
@@ -155,7 +155,7 @@ export default class AboutPage extends Component {
     );
   }
 
-  handleCopy(e) {
+  handleCopy() {
     this._input.select();
     const successful = document.execCommand('copy');
     this.setState({
@@ -166,7 +166,29 @@ export default class AboutPage extends Component {
   }
 
   handleExportJSON() {
-    window.location.href = '/word/export';
+    exportData(
+      (json) => {
+        const data = JSON.stringify(json);
+        const blob = new Blob(
+          [ data ],
+          {
+            type: 'application/json;charset=utf-8'
+          },
+        );
+        const link = document.createElement('a');
+        const ts = Date.now() / 1000 | 0;
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `wk-export-data-${ts}.json`;
+        link.click();
+      },
+      () => {
+        self.setState({
+          error: {
+            message: 'Export data error. Please try again.',
+          },
+        });
+      },
+    );
   }
 
   render() {

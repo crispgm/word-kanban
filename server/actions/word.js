@@ -214,9 +214,6 @@ function exportData(req, res) {
         history.push(item);
       }
     }
-    res.set({
-      'Content-Disposition': `attachment; filename=word-kanban-${userId}.json`,
-    });
     res.send({
       words: {
         inbox,
