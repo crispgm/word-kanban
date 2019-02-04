@@ -166,17 +166,18 @@ export default class AboutPage extends Component {
   }
 
   handleExportJSON() {
+    const self = this;
     exportData(
       (json) => {
         const data = JSON.stringify(json);
         const blob = new Blob(
-          [ data ],
+          [data],
           {
-            type: 'application/json;charset=utf-8'
+            type: 'application/json;charset=utf-8',
           },
         );
         const link = document.createElement('a');
-        const ts = Date.now() / 1000 | 0;
+        const ts = +Date.now();
         link.href = window.URL.createObjectURL(blob);
         link.download = `wk-export-data-${ts}.json`;
         link.click();
@@ -200,13 +201,13 @@ export default class AboutPage extends Component {
         <div className="setting-settings">
           <h3>Settings</h3>
           <p>
-          {(isAuthenticated() &&
-            <div className="profile">
-              <div className="profile-picture"><img src={profile.picture} alt="profile" /></div>
-              <div className="profile-name">{profile.nickname}</div>
-              <div className="profile-logout"><input type="button" value="Logout" onClick={this.logout} /></div>
-            </div>
-          )} 
+            {(isAuthenticated() &&
+              <div className="profile">
+                <div className="profile-picture"><img src={profile.picture} alt="profile" /></div>
+                <div className="profile-name">{profile.nickname}</div>
+                <div className="profile-logout"><input type="button" value="Logout" onClick={this.logout} /></div>
+              </div>
+            )}
           </p>
         </div>
         <div className="setting-settings">
@@ -221,7 +222,7 @@ export default class AboutPage extends Component {
             Word Kanban provides a simple API for integrations. <a href="https://github.com/crispgm/word-kanban/tree/master/docs/integration.md">Documentation and API Specification</a>.
           </p>
           <p>
-            <input type="text" value={this.state.token} readonly ref={(input) => { this._input = input; }} />
+            <input type="text" value={this.state.token} readOnly ref={(input) => { this._input = input; }} />
             <input type="button" value="Copy" onClick={this.handleCopy} />
             <input type="button" value="Generate" onClick={this.handleGenerate} />
             <input type="button" value="Delete" onClick={this.handleDelete} className="input-btn-delete" />
@@ -246,6 +247,6 @@ export default class AboutPage extends Component {
           <ErrorMessage error={this.state.error} />
         }
       </div>
-    )
+    );
   }
 }
