@@ -132,6 +132,8 @@ export default class WordItem extends Component {
             <a href={dictUrl} target="_blank" rel="noopener noreferrer">➡️</a>
           </div>
           <div
+            role="textbox"
+            tabIndex={0}
             className="word-text-main"
             contentEditable="true"
             onInput={this.handleInput}
