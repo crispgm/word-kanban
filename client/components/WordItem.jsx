@@ -102,7 +102,7 @@ export default class WordItem extends Component {
     const text = this.state.word.text;
     const url = `/translate?word=${text}`;
     fetch(url, {
-      headers: { 'Authorization': 'Bearer ' + localStorage.getItem('access_token') }
+      headers: { Authorization: 'Bearer ' + localStorage.getItem('access_token') },
     }).then((response) => {
       return response.json();
     }).then((json) => {
@@ -131,11 +131,13 @@ export default class WordItem extends Component {
           <div className="word-text-icon" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
             <a href={dictUrl} target="_blank" rel="noopener noreferrer">➡️</a>
           </div>
-          <div className="word-text-main"
-            contenteditable="true"
+          <div
+            className="word-text-main"
+            contentEditable="true"
             onInput={this.handleInput}
             onKeyPress={this.handleEnter}
-            onBlur={this.handleEdit}>
+            onBlur={this.handleEdit}
+          >
             {this.state.text}
           </div>
           {this.state.flipped &&

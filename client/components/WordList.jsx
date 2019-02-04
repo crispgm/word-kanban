@@ -20,7 +20,7 @@ export default class WordList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.words != this.state.words) {
+    if (nextProps.words !== this.state.words) {
       this.setState({
         words: nextProps.words,
       });
@@ -47,7 +47,7 @@ export default class WordList extends Component {
         }
         {(!this.props.showCollapse || !this.state.collapsed) &&
           <div className="word-list-container">
-            {this.state.words.map((word, index) =>
+            {this.state.words.map((word, index) => (
               <WordItem
                 word={word}
                 index={index}
@@ -55,7 +55,7 @@ export default class WordList extends Component {
                 handleCheck={this.props.handleCheck}
                 handleDelete={this.props.handleDelete}
               />
-            )}
+            ))}
             <div className="word-more">
               <WordMore text={this.state.moreText} handleMore={this.props.handleMore} />
             </div>
