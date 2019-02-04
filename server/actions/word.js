@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 const models = require('../models');
 const moment = require('moment');
-/* eslint-disable no-unused-vars */
+
 function get(req, res) {
   const page = req.query.page || 1;
   const listId = req.query.listId || 1;

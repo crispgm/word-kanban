@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 const models = require('../models');
 const md5 = require('blueimp-md5');
 const { TOKEN_PRIVATE_KEY } = require('../token');
