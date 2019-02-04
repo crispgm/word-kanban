@@ -74,9 +74,9 @@ export default class HomePage extends Component {
     }
 
     return (
-      <div class="container">
+      <div className="container">
         {content}
       </div>
-    )
+    );
   }
 }
