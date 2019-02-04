@@ -30,35 +30,6 @@ export default class Kanban extends Component {
     });
   }
 
-  render() {
-    return (
-      <div className="kanban">
-        <WordList
-          title="📥 Inbox"
-          words={this.state.inbox}
-          showCheckBox
-          showInput
-          handleInput={this.newEntry}
-          handleCheck={this.moveToHistory}
-          handleMore={this.inboxMore}
-          handleDelete={this.handleDelete}
-        />
-        <WordList
-          title="📝 Done"
-          words={this.state.history}
-          showCheckBox
-          showCollapse
-          handleCheck={this.moveToInbox}
-          handleMore={this.historyMore}
-          handleDelete={this.handleDelete}
-        />
-        {this.state.error &&
-          <ErrorMessage error={this.state.error} />
-        }
-      </div>
-    )
-  }
-
   newEntry(evt) {
     const word = evt.target.value;
     const self = this;
@@ -236,6 +207,35 @@ export default class Kanban extends Component {
         });
         return false;
       },
+    );
+  }
+
+  render() {
+    return (
+      <div className="kanban">
+        <WordList
+          title="📥 Inbox"
+          words={this.state.inbox}
+          showCheckBox
+          showInput
+          handleInput={this.newEntry}
+          handleCheck={this.moveToHistory}
+          handleMore={this.inboxMore}
+          handleDelete={this.handleDelete}
+        />
+        <WordList
+          title="📝 Done"
+          words={this.state.history}
+          showCheckBox
+          showCollapse
+          handleCheck={this.moveToInbox}
+          handleMore={this.historyMore}
+          handleDelete={this.handleDelete}
+        />
+        {this.state.error &&
+          <ErrorMessage error={this.state.error} />
+        }
+      </div>
     );
   }
 }
