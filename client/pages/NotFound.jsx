@@ -10,6 +10,6 @@ export default class NotFound extends Component {
         </p>
         <img src="https://source.unsplash.com/random" alt="Unsplash Random" />
       </div>
-    )
+    );
   }
 }
