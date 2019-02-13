@@ -67,7 +67,7 @@
     "start": "babel-node server",
     "dev-build": "webpack -p --config ./config/webpack.dev.config.js --progress",
     "build": "webpack -p --config ./config/webpack.prod.config.js --progress",
-    "lint": "eslint server/*.js server/actions client/ && scss-lint client/styles",
+    "lint": "eslint server/*.js server/actions client/*.js client/*.jsx && scss-lint client/styles",
     "test": "mocha test --exit",
     "heroku-postbuild": "webpack -p --config ./config/webpack.prod.config.js"
   },

@@ -3,6 +3,7 @@
 import auth0 from 'auth0-js';
 import { route } from 'preact-router';
 /* eslint-disable class-methods-use-this */
+/* eslint-disable no-console */
 export default class Auth {
   constructor() {
     let redirectUri = 'http://localhost:9000/callback';

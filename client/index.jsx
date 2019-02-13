@@ -1,5 +1,6 @@
 // client/index.js
 import Router from 'preact-router';
+/* eslint-disable import/extensions */
 import { h, render } from 'preact';
 // pages
 import HomePage from './pages/HomePage';
