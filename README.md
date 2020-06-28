@@ -75,4 +75,4 @@ $ sequelize db:migrate
 
 MIT License.
 
-Copyright (c) 2018 David Zhang.
+Copyright (c) 2020 David Zhang.
