@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-const md5 = require('blueimp-md5');
+const crypto = require('crypto');
 const models = require('../models');
-const { TOKEN_PRIVATE_KEY } = require('../token');
+
+function hashToken(token) {
+  return crypto.createHash('sha256').update(token).digest('hex');
+}
 
 // token mgmt
 function getToken(req, res) {
@@ -18,8 +21,10 @@ function getToken(req, res) {
     ],
     limit: 1,
   }).then((tokens) => {
-    const token = tokens[0];
-    res.send(token);
+    res.send({
+      status: 0,
+      active: Boolean(tokens[0]),
+    });
   });
 }
 
@@ -29,26 +34,31 @@ function generateToken(req, res) {
   if (!userId) {
     const message = 'Invalid user';
     console.warn(message);
-    res.send({
+    return res.send({
       status: -1,
       message,
     });
   }
 
-  const ts = +new Date();
-  const token = md5(`${TOKEN_PRIVATE_KEY}${userId}${ts}`);
+  const token = crypto.randomBytes(32).toString('base64url');
+  const tokenHash = hashToken(token);
 
-  models.Tokens.create({
-    token,
-    userId,
-    status: 0,
-  })
-    .then((w) => {
+  return models.sequelize.transaction(transaction => Promise.all([
+    models.Tokens.update({ status: 1 }, {
+      where: { userId, status: 0 },
+      transaction,
+    }),
+    models.Tokens.create({
+      token: tokenHash,
+      userId,
+      status: 0,
+    }, { transaction }),
+  ]))
+    .then(([, w]) => {
       res.send({
         status: w.status,
         id: w.id,
-        token: w.token,
-        userId: w.userId,
+        token,
       });
     })
     .catch((error) => {
@@ -92,24 +102,30 @@ function deleteToken(req, res) {
 }
 
 // user apis
-function checkToken(userToken, callback, error) {
-  models.Tokens.findAll({
+function checkToken(userToken, callback, onInvalidToken, onError) {
+  if (!userToken) {
+    onInvalidToken();
+    return;
+  }
+
+  models.Tokens.findOne({
     where: {
-      token: userToken,
+      token: hashToken(userToken),
       status: 0,
     },
     order: [
       ['createdAt', 'DESC'],
     ],
     limit: 1,
-  }).then((tokens) => {
-    if (tokens) {
-      const token = tokens[0];
-      const userId = token.userId;
-      callback(userId);
-    } else {
-      error();
+  }).then((token) => {
+    if (!token) {
+      onInvalidToken();
+      return;
     }
+    callback(token.userId);
+  }).catch((error) => {
+    console.error('Failed to verify token', error);
+    onError();
   });
 }
 
@@ -121,13 +137,13 @@ function createWord(req, res) {
   if (!newWord) {
     const message = 'Invalid word entry';
     console.warn(message);
-    res.send({
+    return res.status(400).send({
       status: 1,
       message,
     });
   }
 
-  checkToken(
+  return checkToken(
     userToken,
     (userId) => {
       models.Words.create({
@@ -158,6 +174,12 @@ function createWord(req, res) {
       res.send({
         status: 3,
         message: 'Invalid token',
+      });
+    },
+    () => {
+      res.status(500).send({
+        status: 2,
+        message: 'Failed to verify token',
       });
     },
   );
@@ -194,6 +216,12 @@ function getWords(req, res) {
         message: 'Invalid token',
       });
     },
+    () => {
+      res.status(500).send({
+        status: 2,
+        message: 'Failed to verify token',
+      });
+    },
   );
 }
 
@@ -203,4 +231,5 @@ module.exports = {
   deleteToken,
   createWord,
   getWords,
+  hashToken,
 };

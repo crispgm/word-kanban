@@ -20,7 +20,7 @@ function get(req, res) {
       ['id', 'DESC'],
     ],
   }).then((words) => {
-    res.send({
+    return res.status(400).send({
       words,
     });
   });
@@ -34,13 +34,13 @@ function create(req, res) {
   if (!newWord) {
     const message = 'Invalid word entry';
     console.warn(message);
-    res.send({
+    return res.status(400).send({
       status: -1,
       message,
     });
   }
 
-  models.Words.create({
+  return models.Words.create({
     text: newWord,
     listId,
     userId,
@@ -165,12 +165,14 @@ function userRecord(req, res) {
 
   models.sequelize.query(
     `SELECT date_trunc('day', "Words"."createdAt") as "day", count("Words"."id") AS "words_cnt"
-     FROM "Words" WHERE "Words"."userId"='${userId}'
+     FROM "Words" WHERE "Words"."userId" = :userId
      GROUP BY date_trunc('day', "Words"."createdAt")
      ORDER BY day DESC LIMIT 30`,
-    { raw: true },
-  ).then((result) => {
-    const rows = result[0];
+    {
+      replacements: { userId },
+      type: models.Sequelize.QueryTypes.SELECT,
+    },
+  ).then((rows) => {
     const dataCollected = {};
     const data = [];
     for (const row of rows) {

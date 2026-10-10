@@ -10,8 +10,8 @@ One of the scenario is making a [Workflow](https://workflow.is/), by which we ma
 
 ### Token
 
-* Generate: click the generate button to get a new token, which is permanent. NOTE: There is an one-day cooldown.
-* Remove: click the remove button to remove the token, but you may generate a new one later.
+* Generate: click the generate button to get a new token. It is shown only once; copy it before leaving the page. Generating a new token revokes the previous one.
+* Remove: click the remove button to revoke the active token. You may generate a new one later.
 
 ### Endpoints
 

@@ -30,6 +30,7 @@ export default class AboutPage extends Component {
 
     this.setState({
       token: '-',
+      hasActiveToken: false,
       activity: [],
     });
   }
@@ -77,7 +78,8 @@ export default class AboutPage extends Component {
       (json) => {
         if (json.error !== 'success') {
           self.setState({
-            token: json.token,
+            token: '-',
+            hasActiveToken: json.active,
           });
         } else {
           self.setState({
@@ -109,6 +111,7 @@ export default class AboutPage extends Component {
         if (json.status === 0) {
           self.setState({
             token: json.token,
+            hasActiveToken: true,
           });
         } else {
           self.setState({
@@ -136,6 +139,7 @@ export default class AboutPage extends Component {
         if (json.status === 0) {
           self.setState({
             token: '-',
+            hasActiveToken: false,
           });
         } else {
           self.setState({
@@ -227,6 +231,9 @@ export default class AboutPage extends Component {
             <input type="button" value="Generate" onClick={this.handleGenerate} />
             <input type="button" value="Delete" onClick={this.handleDelete} className="input-btn-delete" />
           </p>
+          {this.state.hasActiveToken && this.state.token === '-' &&
+            <p>For security, existing API tokens cannot be displayed. Generate a new token to replace it.</p>
+          }
         </div>
         <div className="setting-settings">
           <h3>Data Export</h3>

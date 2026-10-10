@@ -35,7 +35,7 @@ $ GOOGLE_TRANSLATE_API_KEY=your-google-api-key npm start
 
 Note: You may run without a `GOOGLE_TRANSLATE_API_KEY`. However, the hover translation will definitely not work.
 
-For production, provide `DATABASE_URL`, `GOOGLE_TRANSLATE_API_KEY`, and `TOKEN_PRIVATE_KEY`, build the client, then run:
+For production, provide `DATABASE_URL` and `GOOGLE_TRANSLATE_API_KEY`, build the client, then run:
 
 ```shell
 $ NODE_ENV=production npm start
