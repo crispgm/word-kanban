@@ -5,44 +5,40 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   entry: {
     index: ['./client/index.jsx'],
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.jsx$/,
-        loader: 'babel-loader',
+        test: /\.jsx?$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?sourceMap',
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
+        type: 'asset/inline',
       },
       {
         test: /\.(jpe?g|gif|png)$/,
-        loader: 'file-loader',
+        type: 'asset/resource',
       },
     ],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      react: 'preact-compat',
-      'react-dom': 'preact-compat',
+      react: 'preact/compat',
+      'react-dom': 'preact/compat',
     },
   },
   output: {
@@ -58,22 +54,7 @@ module.exports = {
       chunks: ['index'],
       hash: true,
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        screw_ie8: true,
-        warnings: false,
-      },
-      mangle: {
-        screw_ie8: true,
-      },
-      output: {
-        comments: false,
-        screw_ie8: true,
-      },
-    }),
   ],
   devServer: {
     historyApiFallback: true,

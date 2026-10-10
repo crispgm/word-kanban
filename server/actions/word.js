@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-const models = require('../models');
 const moment = require('moment');
+const models = require('../models');
 
 function get(req, res) {
   const page = req.query.page || 1;

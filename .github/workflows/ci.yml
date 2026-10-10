@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: word_kanban_test
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d word_kanban_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: word_kanban_test
+      DB_HOSTNAME: 127.0.0.1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Use the public npm registry
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          sed -i 's#https://bnpm.byted.org/#https://registry.npmjs.org/#g' package-lock.json
+      # Sass can run without its optional native file watcher. Skipping dependency
+      # lifecycle scripts avoids an npm 10 crash on the hosted Node 22 runner.
+      - run: npm ci --ignore-scripts
+      - run: NODE_ENV=test npx sequelize-cli db:migrate --config server/config/config.js --migrations-path server/migrations
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build

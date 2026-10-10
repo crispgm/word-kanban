@@ -6,10 +6,7 @@ import { route } from 'preact-router';
 /* eslint-disable no-console */
 export default class Auth {
   constructor() {
-    let redirectUri = 'http://localhost:9000/callback';
-    if (process.env.NODE_ENV === 'production') {
-      redirectUri = 'https://word-kanban.herokuapp.com/callback';
-    }
+    const redirectUri = `${window.location.origin}/callback`;
     this.auth0 = new auth0.WebAuth({
       domain: 'crispgm.au.auth0.com',
       clientID: '6PLoLj3tLQjtaCbwN14i1K7Z1p9VXNHY',

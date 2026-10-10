@@ -18,7 +18,7 @@ One of the scenario is making a [Workflow](https://workflow.is/), by which we ma
 #### Create a new word
 
 ```
-POST https://word-kanban.herokuapp.com/api/v1/word
+POST https://your-word-kanban-domain.example/api/v1/word
 ```
 
 | Name | Type | Description |
@@ -29,7 +29,7 @@ POST https://word-kanban.herokuapp.com/api/v1/word
 #### Get a list of word
 
 ```
-GET https://word-kanban.herokuapp.com/api/v1/words
+GET https://your-word-kanban-domain.example/api/v1/words
 ```
 
 | Name | Type | Description |

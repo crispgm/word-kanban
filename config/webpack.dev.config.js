@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: {
     index: [
       'webpack-hot-middleware/client',
@@ -12,36 +13,31 @@ module.exports = {
     ],
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.jsx$/,
-        loader: 'babel-loader',
+        test: /\.jsx?$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?sourceMap',
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
+        type: 'asset/inline',
       },
       {
         test: /\.(jpe?g|gif|png)$/,
-        loader: 'file-loader',
+        type: 'asset/resource',
       },
       {
         test: /\.js$/,
-        loader: 'source-map-loader',
+        use: 'source-map-loader',
         enforce: 'pre',
       },
     ],
@@ -49,14 +45,18 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      react: 'preact-compat',
-      'react-dom': 'preact-compat',
+      react: 'preact/compat',
+      'react-dom': 'preact/compat',
     },
   },
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
     filename: '[name]/bundle.js',
     publicPath: '/',
+  },
+  watchOptions: {
+    ignored: '**/node_modules/**',
+    poll: 1000,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -68,7 +68,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
   ],
   devServer: {
     historyApiFallback: true,
