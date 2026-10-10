@@ -124,10 +124,4 @@ app.get('/{*splat}', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
-// Handle 404
-app.use((req, res, next) => {
-  res.redirect(404, '/#/404');
-  next();
-});
-
 module.exports = app;

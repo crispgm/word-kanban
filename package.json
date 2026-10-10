@@ -8,7 +8,6 @@
   "license": "MIT",
   "dependencies": {
     "auth0-js": "^9.28.0",
-    "blueimp-md5": "^2.19.0",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",

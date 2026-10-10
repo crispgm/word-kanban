@@ -1,21 +1,16 @@
 // Test Word Model
 
+const assert = require('assert');
 const models = require('../server/models');
-var assert = require('assert');
 
-describe('word model', function() {
-  it('fetch words', function() {
-    models.Words.findAll({
+describe('word model', () => {
+  it('fetches words from the database', async () => {
+    const words = await models.Words.findAll({
       where: {
         status: 0,
       },
       limit: 10,
-    })
-    .then(words => {
-      assert.ok(true);
-    })
-    .catch(error => {
-      assert.fail();
     });
+    assert.ok(Array.isArray(words));
   });
 });
