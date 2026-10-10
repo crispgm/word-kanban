@@ -19,24 +19,28 @@ import './styles/index.scss';
 const auth = new Auth();
 
 // main router
-const Main = () => (
-  <Router>
-    <HomePage path="/" auth={auth} />
-    <SettingPage path="/setting" auth={auth} />
-    <Callback path="/callback" auth={auth} />
-    <NotFound path="/404" default />
-    <NotFound path="*" default />
-  </Router>
-);
+function Main() {
+  return (
+    <Router>
+      <HomePage path="/" auth={auth} />
+      <SettingPage path="/setting" auth={auth} />
+      <Callback path="/callback" auth={auth} />
+      <NotFound path="/404" default />
+      <NotFound path="*" default />
+    </Router>
+  );
+}
 
 // main app
-const App = () => (
-  <div className="main">
-    <Header />
-    <Main />
-    <Footer />
-  </div>
-);
+function App() {
+  return (
+    <div className="main">
+      <Header />
+      <Main />
+      <Footer />
+    </div>
+  );
+}
 
 // render to body
 render(<App />, document.body);

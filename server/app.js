@@ -7,8 +7,7 @@ const express = require('express');
 const compression = require('compression');
 const morgan = require('morgan');
 const path = require('path');
-const bodyParser = require('body-parser');
-const jwt = require('express-jwt');
+const { expressjwt: jwt } = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 const cors = require('cors');
 
@@ -20,14 +19,14 @@ const API = require('./actions/api');
 // webpack-dev-middleware
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
-  const webpackConfig = require('../config/webpack.dev.config.js');
+  const webpackConfig = require('../config/webpack.dev.config');
   const compiler = webpack(webpackConfig);
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   // Dev
   app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
     publicPath: webpackConfig.output.publicPath,
+    stats: 'errors-warnings',
   }));
   // HMR
   app.use(webpackHotMiddleware(compiler, {
@@ -50,8 +49,8 @@ app.use('/public', express.static(path.resolve(__dirname, '.', 'public')));
 app.use(cors());
 
 // Enable the use of request body parsing middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
   extended: true,
 }));
 
@@ -121,7 +120,7 @@ app.get('/api/v1/words', (req, res) => {
 });
 
 // Always return the main index.html
-app.get('*', (req, res) => {
+app.get('/{*splat}', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 

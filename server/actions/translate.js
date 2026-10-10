@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const { GOOGLE_TRANSLATE_API_KEY } = require('../token');
 
 function translate(req, res) {
