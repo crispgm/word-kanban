@@ -6,7 +6,7 @@ And we use Preact stacks for client side.
 
 ## Development
 
-Requires Node.js 22 or later and PostgreSQL.
+Requires Node.js 24 or later and PostgreSQL.
 
 Clone & Init
 

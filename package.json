@@ -56,9 +56,9 @@
     "build": "webpack --config ./config/webpack.prod.config.js --progress",
     "lint": "eslint server/*.js server/actions client/*.js client/*.jsx",
     "test": "NODE_ENV=test mocha test --exit",
-    "db:migrate": "sequelize-cli db:migrate"
+    "db:migrate": "sequelize-cli db:migrate --config server/config/config.js --migrations-path server/migrations"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   }
 }

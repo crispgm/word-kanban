@@ -38,7 +38,7 @@ jobs:
       # Sass can run without its optional native file watcher. Skipping dependency
       # lifecycle scripts avoids an npm 10 crash on the hosted Node 22 runner.
       - run: npm ci --ignore-scripts
-      - run: NODE_ENV=test npm run db:migrate
+      - run: NODE_ENV=test npx sequelize-cli db:migrate --config server/config/config.js --migrations-path server/migrations
       - run: npm run lint
       - run: npm test
       - run: npm run build
