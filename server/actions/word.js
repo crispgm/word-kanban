@@ -179,7 +179,7 @@ function userRecord(req, res) {
     const dataCollected = {};
     const data = [];
     for (const row of rows) {
-      dataCollected[moment(row.day).unix()] = row.words_cnt;
+      dataCollected[moment(row.day).unix()] = Number(row.words_cnt);
     }
     /* eslint-disable no-plusplus */
     for (let i = 0; i < 30; i++) {
