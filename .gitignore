@@ -2,3 +2,7 @@
 /dist
 yarn-error.log
 .env
+/server/data/*.sqlite
+/server/data/*.sqlite-journal
+/server/data/*.sqlite-shm
+/server/data/*.sqlite-wal
