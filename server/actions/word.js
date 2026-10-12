@@ -162,11 +162,14 @@ function remove(req, res) {
 
 function userRecord(req, res) {
   const userId = req.user.sub;
+  const dayExpression = models.sequelize.getDialect() === 'sqlite'
+    ? 'strftime(\'%Y-%m-%d\', "Words"."createdAt")'
+    : 'date_trunc(\'day\', "Words"."createdAt")';
 
   models.sequelize.query(
-    `SELECT date_trunc('day', "Words"."createdAt") as "day", count("Words"."id") AS "words_cnt"
+    `SELECT ${dayExpression} as "day", count("Words"."id") AS "words_cnt"
      FROM "Words" WHERE "Words"."userId" = :userId
-     GROUP BY date_trunc('day', "Words"."createdAt")
+     GROUP BY ${dayExpression}
      ORDER BY day DESC LIMIT 30`,
     {
       replacements: { userId },
@@ -176,7 +179,7 @@ function userRecord(req, res) {
     const dataCollected = {};
     const data = [];
     for (const row of rows) {
-      dataCollected[moment(row.day).unix()] = row.words_cnt;
+      dataCollected[moment(row.day).unix()] = Number(row.words_cnt);
     }
     /* eslint-disable no-plusplus */
     for (let i = 0; i < 30; i++) {

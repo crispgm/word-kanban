@@ -46,4 +46,27 @@ describe('word actions', () => {
     assert.strictEqual(options.type, models.Sequelize.QueryTypes.SELECT);
     assert.strictEqual(payload.data.length, 30);
   });
+
+  it('returns activity data with the configured database dialect', async () => {
+    const userId = `test|activity-${Date.now()}`;
+    await models.Words.create({
+      text: 'activity test',
+      listId: 1,
+      userId,
+      status: 0,
+      createdAt: new Date(Date.now() - (2 * 24 * 60 * 60 * 1000)),
+    });
+
+    try {
+      const payload = await new Promise((resolve) => {
+        Word.userRecord({ user: { sub: userId } }, { send: resolve });
+      });
+
+      assert.strictEqual(payload.status, 0);
+      assert.strictEqual(payload.data.length, 30);
+      assert.ok(payload.data.some((entry) => entry.count === 1));
+    } finally {
+      await models.Words.destroy({ where: { userId } });
+    }
+  });
 });
